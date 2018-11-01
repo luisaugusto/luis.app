@@ -1,5 +1,1 @@
-# Redirect domain aliases to primary domain
-https://blog.luis.codes/* https://medium.com/@legendofluis/:splat 200
-
-# Optional: Redirect default Netlify subdomain to primary domain
 https://luis-codes.netlify.com/* https://luis.codes/:splat 301!

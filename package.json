@@ -1,7 +1,7 @@
 {
   "name": "luis.codes",
   "description": "Source code for my portfolio website.",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "author": "Luis Augusto <hello@luis.codes>",
   "license": "MIT",
   "private": true,

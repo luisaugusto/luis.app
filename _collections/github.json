@@ -1,3 +1,16 @@
 {
-
+  "projects": [
+    {
+      "title": "Test project A",
+      "siteUrl": "www.google.com",
+      "repoUrl": "www.github.com",
+      "description": "this is a test"
+    },
+    {
+      "title": "Test Project B",
+      "siteUrl": "www.google.com",
+      "repoUrl": "www.github.com",
+      "description": "this is Test B"
+    }
+  ]
 }

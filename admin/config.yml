@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
   branch: staging # Branch to update (optional; defaults to master)
+  #TODO: Change branch to master when pushing live
 
 # This line should *not* be indented
 media_folder: "src/assets/uploads" # Media files will be stored in the repo under images/uploads
@@ -16,9 +17,9 @@ collections:
           - label: Projects
             name: projects
             widget: list
-            fields:
+            fields: #TODO: Add select field to choose technologies used
               - {label: Title, name: title, widget: string}
-              - {label: Image, name: image, widget: image}
+              - {label: Image, name: image, widget: image} #TODO: Add Default Image
               - {label: "Site URL", name: siteUrl, widget: string}
               - {label: "Repo URL", name: repoUrl, widget: string}
               - {label: Description, name: description, widget: text}

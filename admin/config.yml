@@ -18,6 +18,7 @@ collections:
             widget: list
             fields:
               - {label: Title, name: title, widget: string}
+              - {label: Image, name: image, widget: image}
               - {label: "Site URL", name: siteUrl, widget: string}
               - {label: "Repo URL", name: repoUrl, widget: string}
               - {label: Description, name: description, widget: text}

@@ -9,6 +9,8 @@ media_folder: "src/assets/uploads" # Media files will be stored in the repo unde
 collections:
   - label: "Portfolio"
     name: "portfolio"
+    editor:
+      preview: false
     files:
       - label: "Github Projects"
         name: "github"

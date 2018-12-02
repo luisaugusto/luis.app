@@ -6,13 +6,18 @@ backend:
 media_folder: "src/assets/uploads" # Media files will be stored in the repo under images/uploads
 
 collections:
-  - name: "portfolio" # Used in routes, e.g., /admin/collections/blog
-    label: "Portfolio" # Used in the UI
-    folder: "_collections/portfolio" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    extension: 'json'
-    fields: # The fields for each document, usually in front matter
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Description", name: "body", widget: "text"}
+  - label: "Portfolio"
+    name: "portfolio"
+    files:
+      - label: "Github Projects"
+        name: "github"
+        file: "_collections/github.json"
+        field:
+          - label: Projects
+            name: projects
+            widget: list
+            fields:
+              - {label: Title, name: title, widget: string}
+              - {label: "Site URL", name: siteUrl, widget: string}
+              - {label: "Repo URL", name: repoUrl, widget: string}
+              - {label: Description, name: description, widget: text}

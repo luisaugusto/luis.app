@@ -4,7 +4,8 @@ backend:
   #TODO: Change branch to master when pushing live
 
 # This line should *not* be indented
-media_folder: "src/assets/uploads" # Media files will be stored in the repo under images/uploads
+media_folder: "src/assets/uploads" # Media files will be stored in the repo under static/images/uploads
+public_folder: "assets/uploads" # Media files will be stored in the repo under images/uploads
 
 collections:
   - label: "Portfolio"

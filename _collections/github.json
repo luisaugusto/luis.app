@@ -4,7 +4,7 @@
       "title": "Test project A",
       "siteUrl": "www.google.com",
       "repoUrl": "www.github.com",
-      "description": "this is a test"
+      "description": "this is a test. testing vue cli 3 with netlify!"
     },
     {
       "title": "Test Project B",

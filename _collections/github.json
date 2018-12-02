@@ -11,6 +11,9 @@
       "siteUrl": "www.google.com",
       "repoUrl": "www.github.com",
       "description": "this is Test B"
+    },
+    {
+      "title": "Git"
     }
   ]
 }

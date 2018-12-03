@@ -10,7 +10,8 @@ public_folder: "assets/uploads" # Media files will be stored in the repo under i
 collections:
   - label: "Events"
     name: "events"
-    folder: "_collections/events"
+    folder: "/public/_collections/events"
+    extension: "json"
     create: true
     fields:
       - {label: Title, name: title, widget: string}
@@ -21,7 +22,7 @@ collections:
     files:
       - label: "Github Projects"
         name: "github"
-        file: "_collections/github.json"
+        file: "/public/_collections/github.json"
         fields:
           - label: Projects
             name: projects

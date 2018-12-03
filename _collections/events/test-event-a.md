@@ -1,4 +1,0 @@
----
-title: Test Event A
----
-

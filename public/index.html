@@ -27,5 +27,12 @@
         });
       }
     </script>
+
+    <script>
+      console.log('fetching data...');
+      fetch('/admin/#/collections/events')
+        .then(res => res.text())
+        .then(data => console.log(data))
+    </script>
   </body>
 </html>

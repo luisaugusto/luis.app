@@ -8,6 +8,12 @@ media_folder: "src/assets/uploads" # Media files will be stored in the repo unde
 public_folder: "assets/uploads" # Media files will be stored in the repo under images/uploads
 
 collections:
+  - label: "Events"
+    name: "events"
+    folder: "_collections/events"
+    create: true
+    fields:
+      - {label: Title, name: title, widget: string}
   - label: "Portfolio"
     name: "portfolio"
     editor:

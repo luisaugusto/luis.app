@@ -5,15 +5,16 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new MergeJsonWebpackPlugin({
-        "debug": true,
+        "encoding": "ascii",
         "output": {
           "groupBy": [
             {
-              "pattern": "./public/data/events/**.json",
-              "fileName": "./data/events.json"
+              "pattern": "public/data/events/*.json",
+              "fileName": "data/events.json"
             }
           ]
-        }
+        },
+        "prefixFileName": true
       })
     ]
   }

@@ -15,6 +15,7 @@ collections:
     create: true
     fields:
       - {label: Title, name: title, widget: string}
+      - {label: "Start Date", name: startDate, widget: "datetime"}
   - label: "Portfolio"
     name: "portfolio"
     editor:

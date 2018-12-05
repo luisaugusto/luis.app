@@ -9,7 +9,7 @@ module.exports = {
         "output": {
           "groupBy": [
             {
-              "pattern": "src/data/events/*.json",
+              "pattern": "public/data/events/*.json",
               "fileName": "data/events.json"
             }
           ]

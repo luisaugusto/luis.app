@@ -1,14 +1,21 @@
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
+
 // vue.config.js
 module.exports = {
   configureWebpack: {
-    mode: "development",
-    devServer: {
-      proxy: {
-        "/.netlify": {
-          target: "http://localhost:9000",
-          pathRewrite: { "^/.netlify/functions": "" }
-        }
-      }
-    }
+    plugins: [
+      new MergeJsonWebpackPlugin({
+        "encoding": "ascii",
+        "output": {
+          "groupBy": [
+            {
+              "pattern": "public/data/events/*.json",
+              "fileName": "data/events.json"
+            }
+          ]
+        },
+        "prefixFileName": true
+      })
+    ]
   }
-}
+};

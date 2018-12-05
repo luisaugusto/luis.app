@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="dark" >
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
@@ -17,6 +17,7 @@
 
     <v-content>
       <HelloWorld/>
+      <v-btn @click="dark = !dark">Toggle Dark</v-btn>
     </v-content>
   </v-app>
 </template>
@@ -31,7 +32,7 @@ export default {
   },
   data () {
     return {
-      //
+      dark: false
     }
   }
 }

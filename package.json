@@ -32,7 +32,10 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
-    "rules": {},
+    "rules": {
+      "quotes": [1, "single", { "avoidEscape": true }],
+      "prettier/prettier": ["warn", {"singleQuote": true}]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

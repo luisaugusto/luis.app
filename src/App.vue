@@ -29,5 +29,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 </style>

@@ -8,15 +8,15 @@
       </div>
       <div class="page-title" :style="{height: angle + '%'}">
         <h1>Luis Augusto</h1>
-        <span>{{currentSubtitle.text}}<span :class="{flashingCursor}">_</span></span>
+        <span><span class="spacer">_</span>{{currentSubtitle.text}}<span :class="{flashingCursor}">_</span></span>
       </div>
       <nav>
         <ul>
-          <li>Home</li>
-          <li>Capabilities</li>
-          <li>Portfolio</li>
-          <li>Blog</li>
-          <li>Contact</li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Capabilities</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -24,34 +24,28 @@
 </template>
 
 <script>
+import { entries } from '../main.js';
+
 export default {
   data() {
     return {
       angle: 0,
-      titles: [
-        {
-          title: 'Web Developer',
-          background: 'https://picsum.photos/1920/1080/?random'
-        },
-        {
-          title: 'Photographer',
-          background: 'https://picsum.photos/1920/1200/?random'
-        },
-        {
-          title: 'Dog Lover',
-          background: 'https://picsum.photos/1600/1200/?random'
-        },
-        {
-          title: 'Adventurer',
-          background: 'https://picsum.photos/1600?random'
-        }
-      ],
+      titles: [],
       currentSubtitle: {
         index: undefined,
         text: ''
       },
       flashingCursor: true
     };
+  },
+  watch: {
+    titles() {
+      const vm = this;
+      setTimeout(function() {
+        vm.currentSubtitle.index = 0;
+        vm.typeSubtitles(vm.titles[0].title);
+      }, 1);
+    }
   },
   methods: {
     adjustAngle() {
@@ -96,13 +90,18 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    entries('subheaders', 'fields.order').then(entries => {
+      this.titles = entries.items.map(({ fields }) => {
+        return {
+          title: fields.title,
+          background: fields.image.fields.file.url
+        };
+      });
+    });
+  },
   mounted() {
     this.adjustAngle();
-
-    //The subtitle index is set on mounted so that the image
-    //doesn't start with the class and bypass the animation
-    this.currentSubtitle.index = 0;
-    this.typeSubtitles(this.titles[0].title);
     document.addEventListener('scroll', this.adjustAngle);
   },
   destroyed() {
@@ -163,6 +162,10 @@ header {
           font-family: 'Major Mono Display';
           font-size: 2.5em;
 
+          .spacer {
+            opacity: 0;
+          }
+
           .flashingCursor {
             animation: flash 1s step-end infinite;
           }
@@ -177,9 +180,24 @@ header {
       padding: 15px;
 
       ul {
-        margin: 0;
+        margin: 0 -15px;
         padding: 0;
         list-style: none;
+        display: flex;
+
+        li a {
+          display: block;
+          border-top: 1px solid rgba(255, 255, 255, 0.5);
+          padding: 10px;
+          margin: 0 15px;
+          transition: all 0.2s ease-out;
+          position: relative;
+
+          &:hover {
+            border-top: 3px solid white;
+            padding-top: 8px;
+          }
+        }
       }
     }
   }

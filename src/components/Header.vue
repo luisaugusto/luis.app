@@ -118,31 +118,34 @@ header {
 
   > div {
     height: 50vh;
-    min-height: 500px;
+    min-height: 480px;
     position: relative;
 
     .backgrounds {
-      height: 100%;
       overflow: hidden;
       filter: brightness(75%);
+      left: 0;
 
       &,
       img {
-        width: 100%;
         position: absolute;
         top: 0;
-        left: 0;
+        width: 100%;
+        height: 100%;
       }
 
       img {
-        opacity: 0;
+        object-fit: cover;
+        left: 50%;
+        opacity: 0; 
+        transform: translateX(-50%);
         transform-origin: center;
         transition: opacity 0.5s, transform 0s 0.5s;
 
         &.active {
           opacity: 1;
-          transform: scale(1.05);
-          transition: opacity 0.5s, transform 12s;
+          transform: scale(1.05) translateX(-50%);
+          transition: opacity 0.5s, transform 15s;
         }
       }
     }

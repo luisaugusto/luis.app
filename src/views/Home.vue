@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="page">
-    <!-- TODO: Pull data from Contentful -->
+    <!-- TODO: Pull data from Contentful  -->
     <section :class="['site-desc', {descLoaded}]">
       <div>
         <img src="img.jpg" alt="Luis Augusto">

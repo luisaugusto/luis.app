@@ -125,6 +125,7 @@ header {
       overflow: hidden;
       filter: brightness(75%);
       left: 0;
+      background-color: #999;
 
       &,
       img {

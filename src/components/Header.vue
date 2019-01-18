@@ -112,7 +112,7 @@ export default {
 
 <style lang="scss">
 header {
-  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0px 5px 0px var(--accent-color));
   color: #efefef;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 
@@ -137,7 +137,7 @@ header {
       img {
         object-fit: cover;
         left: 50%;
-        opacity: 0; 
+        opacity: 0;
         transform: translateX(-50%);
         transform-origin: center;
         transition: opacity 0.5s, transform 0s 0.5s;

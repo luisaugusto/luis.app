@@ -20,10 +20,24 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --accent-color: #009063;
+  --font-size: 16px;
+}
+
 body {
   margin: 0;
-  background: #efefef;
+  background-image: radial-gradient(
+    circle,
+    #dedede,
+    #e2e2e2,
+    #e6e6e6,
+    #ebebeb,
+    #efefef
+  );
+  font-size: var(--font-size);
 }
+
 #app {
   font-family: 'Montserrat', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,12 +48,12 @@ body {
     text-decoration: none;
     color: inherit;
   }
-}
 
-#page {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 15px;
-  box-sizing: border-box;
+  #page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
 }
 </style>

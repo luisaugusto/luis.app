@@ -1,14 +1,24 @@
 <template>
   <header ref="header">
-    <div :style="{clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`}">
+    <div
+      :style="{ clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)` }"
+    >
       <div class="backgrounds">
-        <img v-for="({title, background}, i) in titles" 
-        :src="background" :key="title" :alt="title" 
-        :class="{active: currentSubtitle.index == i}"/>
+        <img
+          v-for="({ title, background }, i) in titles"
+          :src="background"
+          :key="title"
+          :alt="title"
+          :class="{ active: currentSubtitle.index == i }"
+          @load="firstTitleLoaded = true"
+        />
       </div>
-      <div class="page-title" :style="{height: angle + '%'}">
+      <div class="page-title" :style="{ height: angle + '%' }">
         <h1>Luis Augusto</h1>
-        <span><span class="spacer">_</span>{{currentSubtitle.text}}<span :class="{flashingCursor}">_</span></span>
+        <span
+          ><span class="spacer">_</span>{{ currentSubtitle.text
+          }}<span :class="{ flashingCursor }">_</span></span
+        >
       </div>
       <nav>
         <ul>
@@ -31,6 +41,7 @@ export default {
     return {
       angle: 0,
       titles: [],
+      firstTitleLoaded: false,
       currentSubtitle: {
         index: undefined,
         text: ''
@@ -39,12 +50,9 @@ export default {
     };
   },
   watch: {
-    titles() {
-      const vm = this;
-      setTimeout(function() {
-        vm.currentSubtitle.index = 0;
-        vm.typeSubtitles(vm.titles[0].title);
-      }, 1);
+    firstTitleLoaded() {
+      this.currentSubtitle.index = 0;
+      this.typeSubtitles(this.titles[0].title);
     }
   },
   methods: {
@@ -90,7 +98,7 @@ export default {
       }
     }
   },
-  beforeCreate() {
+  beforeMount() {
     entries('subheaders', 'fields.order').then(entries => {
       this.titles = entries.items.map(({ fields }) => {
         return {

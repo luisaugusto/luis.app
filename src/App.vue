@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <app-header/>
+    <app-header />
     <!-- <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -37,16 +37,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
 
+  .page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+
   a {
     text-decoration: none;
     color: inherit;
   }
 
-  #page {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 15px;
-    box-sizing: border-box;
+  h2 {
+    font-size: 3em;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-family: 'Major Mono Display';
+    font-size: 2em;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

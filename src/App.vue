@@ -27,14 +27,7 @@ export default {
 
 body {
   margin: 0;
-  background-image: radial-gradient(
-    circle,
-    #dedede,
-    #e2e2e2,
-    #e6e6e6,
-    #ebebeb,
-    #efefef
-  );
+  background: #defff5;
   font-size: var(--font-size);
 }
 

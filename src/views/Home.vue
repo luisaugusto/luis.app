@@ -6,7 +6,7 @@
         <img src="img.jpg" alt="Luis Augusto">
       </div>
       <p>
-        <span>I am a Fullstack developer with a focus on</span>
+        <span>I am a fullstack developer with a focus on</span>
         <span>JavaScript toolsets to deliver performant,</span>
         <span>scalable, and secure web applications.</span>
       </p>

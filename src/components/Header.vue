@@ -1,5 +1,5 @@
 <template>
-  <header ref="header">
+  <header ref="header" id="header">
     <div
       :style="{ clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)` }"
     >
@@ -23,7 +23,7 @@
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">Capabilities</a></li>
+          <li><a href="#">Skillsets</a></li>
           <li><a href="#">Portfolio</a></li>
           <li><a href="#">Blog</a></li>
           <li><a href="#">Contact</a></li>
@@ -99,8 +99,8 @@ export default {
     }
   },
   beforeMount() {
-    entries('subheaders', 'fields.order').then(entries => {
-      this.titles = entries.items.map(({ fields }) => {
+    entries('subheaders', 'fields.order').then(({items}) => {
+      this.titles = items.map(({ fields }) => {
         return {
           title: fields.title,
           background: fields.image.fields.file.url
@@ -118,8 +118,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-header {
+<style lang="scss" scoped>
+header#header {
   filter: drop-shadow(0px 5px 0px var(--accent-color));
   color: #efefef;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
@@ -200,10 +200,13 @@ header {
         li a {
           display: block;
           border-top: 1px solid rgba(255, 255, 255, 0.5);
+          border-bottom: none;
           padding: 10px;
           margin: 0 15px;
           transition: all 0.2s ease-out;
           position: relative;
+          font-weight: normal;
+          opacity: 1;
 
           &:hover {
             border-top: 3px solid white;

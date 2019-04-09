@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <app-header />
     <!-- <div id="nav">
       <router-link to="/">Home</router-link>|
@@ -23,15 +23,16 @@ export default {
 :root {
   --accent-color: #009063;
   --font-size: 16px;
+  --spacing: 30px;
 }
 
 body {
   margin: 0;
-  background: #defff5;
   font-size: var(--font-size);
+  background-image: url(../public/textures/asfalt-dark.png);
 }
 
-#app {
+.app {
   font-family: 'Montserrat', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,25 +41,42 @@ body {
   .page {
     max-width: 1200px;
     margin: auto;
-    padding: 0 15px;
+    padding: 0 var(--spacing);
     box-sizing: border-box;
   }
 
   a {
     text-decoration: none;
     color: inherit;
+
+    border-bottom: 1px dashed black;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    font-weight: bold;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
-  h2 {
-    font-size: 3em;
+  p {
+    margin: 0 0 calc(var(--spacing) / 2) 0;
+    font-size: calc(var(--font-size) * 1.125);
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
-  h3 {
-    margin-top: 0;
-    font-family: 'Major Mono Display';
-    font-size: 2em;
-    display: flex;
-    justify-content: space-between;
+  ul {
+    margin: calc(var(--spacing) / 2) 0;
+    padding-left: 0;
+    list-style: none;
+
+    li:not(:last-of-type) {
+      margin-bottom: calc(var(--spacing) / 3);
+    }
   }
 }
 </style>

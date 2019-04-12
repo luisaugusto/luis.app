@@ -1,36 +1,43 @@
 <template>
-  <header ref="header" id="header">
-    <div
-      :style="{ clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)` }"
+  <div>
+    <header ref="header">
+      <div
+        :style="{ clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)` }"
+      >
+        <div class="backgrounds">
+          <img
+            v-for="({ title, background }, i) in titles"
+            :src="background"
+            :key="title"
+            :alt="title"
+            :class="{ active: currentSubtitle.index == i }"
+            @load="firstTitleLoaded = true"
+          />
+        </div>
+        <div class="page-title" :style="{ height: angle + '%' }">
+          <h1>Luis Augusto</h1>
+          <span
+            ><span class="spacer">_</span>{{ currentSubtitle.text
+            }}<span :class="{ flashingCursor }">_</span></span
+          >
+        </div>
+      </div>
+    </header>
+    <nav
+      v-for="i in 2"
+      :key="'nav' + i"
+      :class="{ hide: navTransition && i === 1,
+      bg : navTransition && i === 2 }"
     >
-      <div class="backgrounds">
-        <img
-          v-for="({ title, background }, i) in titles"
-          :src="background"
-          :key="title"
-          :alt="title"
-          :class="{ active: currentSubtitle.index == i }"
-          @load="firstTitleLoaded = true"
-        />
-      </div>
-      <div class="page-title" :style="{ height: angle + '%' }">
-        <h1>Luis Augusto</h1>
-        <span
-          ><span class="spacer">_</span>{{ currentSubtitle.text
-          }}<span :class="{ flashingCursor }">_</span></span
-        >
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Skillsets</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Skillsets</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -53,6 +60,11 @@ export default {
     firstTitleLoaded() {
       this.currentSubtitle.index = 0;
       this.typeSubtitles(this.titles[0].title);
+    }
+  },
+  computed: {
+    navTransition() {
+      return this.angle == 100 ? true : false;
     }
   },
   methods: {
@@ -99,7 +111,7 @@ export default {
     }
   },
   beforeMount() {
-    entries('subheaders', 'fields.order').then(({items}) => {
+    entries('subheaders', 'fields.order').then(({ items }) => {
       this.titles = items.map(({ fields }) => {
         return {
           title: fields.title,
@@ -119,10 +131,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header#header {
-  filter: drop-shadow(0px 5px 0px var(--accent-color));
+header,
+nav {
   color: #efefef;
+}
+
+header {
+  z-index: 2;
+  filter: drop-shadow(0px 5px 0px var(--accent-color));
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
 
   > div {
     height: 50vh;
@@ -170,6 +188,7 @@ header#header {
         font-weight: normal;
         margin: 0;
         font-size: 4em;
+
         + span {
           font-family: 'Major Mono Display';
           font-size: 2.5em;
@@ -182,38 +201,91 @@ header#header {
             animation: flash 1s step-end infinite;
           }
         }
-      }
-    }
 
-    nav {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 15px;
+        @media (max-width: 500px) {
+          font-size: 13vw;
 
-      ul {
-        margin: 0 -15px;
-        padding: 0;
-        list-style: none;
-        display: flex;
-
-        li a {
-          display: block;
-          border-top: 1px solid rgba(255, 255, 255, 0.5);
-          border-bottom: none;
-          padding: 10px;
-          margin: 0 15px;
-          transition: all 0.2s ease-out;
-          position: relative;
-          font-weight: normal;
-          opacity: 1;
-
-          &:hover {
-            border-top: 3px solid white;
-            padding-top: 8px;
+          + span {
+            font-size: 8vw;
           }
         }
       }
+    }
+  }
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  mix-blend-mode: color-dodge;
+
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  ul {
+    margin: 0 -15px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-bottom: 0;
+
+      a {
+        display: block;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-bottom: none;
+        padding: 10px 10px 0 10px;
+        margin: 0 15px;
+        transition: all 0.1s ease-out;
+        position: relative;
+        font-weight: normal;
+        opacity: 1;
+
+        &:hover {
+          border-top: 3px solid white;
+          padding-top: 8px;
+        }
+      }
+    }
+  }
+}
+
+nav + nav {
+  $font-color: black;
+  color: $font-color;
+  z-index: 1;
+  mix-blend-mode: normal;
+  border-bottom: 3px solid var(--accent-color);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    transition: all 0.3s;
+  }
+
+  &.bg:before {
+    background: var(--accent-color);
+  }
+
+  ul li a {
+    border-color: $font-color;
+
+    &:hover {
+      border-top: 3px solid $font-color;
     }
   }
 }

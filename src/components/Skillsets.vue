@@ -1,14 +1,26 @@
 <template>
   <div class="skills">
     <div class="col-3" v-if="skillsets.length > 0">
-      <article class="skillset" v-for="skillset in skillsets" :key="skillset.id">
-        <h3>{{skillset.title}} <font-awesome-icon :icon="skillset.icon" /></h3>
+      <article
+        class="skillset"
+        v-for="skillset in skillsets"
+        :key="skillset.id"
+      >
+        <h3>
+          {{ skillset.title }}<font-awesome-icon :icon="skillset.icon" />
+        </h3>
         <div>
-          <div v-for="skills in skillset.skillsetGroups" :key="skillset.id + skills.sys.id">
-            <h4>{{skills.fields.title}}</h4>
+          <div
+            v-for="skills in skillset.skillsetGroups"
+            :key="skillset.id + skills.sys.id"
+          >
+            <h4>{{ skills.fields.title }}</h4>
             <ul>
-              <li v-for="(skill, index) in skills.fields.skills" :key="skillset.id + skills.sys.id + index">
-                {{skill}}
+              <li
+                v-for="(skill, index) in skills.fields.skills"
+                :key="skillset.id + skills.sys.id + index"
+              >
+                {{ skill }}
               </li>
             </ul>
           </div>
@@ -74,12 +86,12 @@ export default {
   data() {
     return {
       skillsets: []
-    }
+    };
   },
   beforeMount() {
-    entries('skillsets').then(({items}) => {
-      this.skillsets = items.map(({fields, sys}) => {
-        return {...fields, ...sys}
+    entries('skillsets').then(({ items }) => {
+      this.skillsets = items.map(({ fields, sys }) => {
+        return { ...fields, ...sys };
       });
     });
   }

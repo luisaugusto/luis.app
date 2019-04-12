@@ -1,11 +1,7 @@
 <template>
   <div class="app">
     <app-header />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view />
+    <router-view class="page" />
   </div>
 </template>
 
@@ -74,8 +70,12 @@ body {
     padding-left: 0;
     list-style: none;
 
-    li:not(:last-of-type) {
+    li {
       margin-bottom: calc(var(--spacing) / 3);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
 }

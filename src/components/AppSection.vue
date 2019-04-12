@@ -1,6 +1,15 @@
 <template>
   <section :id="type">
-    <h2 v-if="header">{{ type }}</h2>
+    <h2
+      v-if="header"
+      v-observe-visibility="{
+        callback: toggleHeader,
+        once: true
+      }"
+      :class="{ visible }"
+    >
+      <span>{{ type }}</span>
+    </h2>
 
     <component :is="type"></component>
   </section>
@@ -18,6 +27,16 @@ export default {
       type: Boolean
     }
   },
+  data() {
+    return {
+      visible: false
+    };
+  },
+  methods: {
+    toggleHeader(isVisible) {
+      this.visible = isVisible;
+    }
+  },
   components: {
     Description,
     Skillsets
@@ -32,13 +51,31 @@ section {
   h2 {
     font-size: 3em;
     font-weight: normal;
-    padding-left: var(--spacing);
     border-left: 5px solid var(--accent-color);
     margin: 0;
     text-transform: capitalize;
+    transition: clip-path 0.5s;
+    clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0 50%);
+    overflow: hidden;
 
-    &:first-letter {
-      font-weight: bold;
+    span {
+      display: inline-block;
+      position: relative;
+      padding-left: var(--spacing);
+      transform: translateX(-100%);
+      transition: transform 0.5s 0.3s;
+
+      &:first-letter {
+        font-weight: bold;
+      }
+    }
+
+    &.visible {
+      clip-path: polygon(0% 00%, 100% 00%, 100% 100%, 0 100%);
+
+      span {
+        transform: translateX(0%);
+      }
     }
   }
 

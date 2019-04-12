@@ -1,5 +1,5 @@
 <template>
-  <div class="home page">
+  <div class="home">
     <app-section type="Description" :header="false" />
     <app-section type="Skillsets" />
   </div>

@@ -66,7 +66,7 @@ export default {
     margin: 0;
 
     @media (max-width: 767px) {
-      font-size: 4vw;
+      font-size: 4.1vw;
     }
 
     span {

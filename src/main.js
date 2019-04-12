@@ -14,6 +14,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faCode, faTerminal, faDraftingCompass, faLayerGroup);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+import VueObserveVisibility from 'vue-observe-visibility';
+Vue.use(VueObserveVisibility);
+
 const contentful = require('contentful');
 
 const client = contentful.createClient({

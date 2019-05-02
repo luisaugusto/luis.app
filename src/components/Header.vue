@@ -29,18 +29,33 @@
       :class="{ hide: navTransition && i === 1, bg: navTransition && i === 2 }"
     >
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Skillsets</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contact</a></li>
+        <li>
+          <a
+            href="#"
+            v-scroll-to="'#app'"
+            :class="{
+              active: activeSections.length === 0
+            }"
+            >Home</a
+          >
+        </li>
+        <li v-for="(section, i) in sections" :key="section + i">
+          <a
+            href="#"
+            v-scroll-to="'#' + section"
+            :class="{
+              active: activeSections[0] == section
+            }"
+            >{{ section }}</a
+          >
+        </li>
       </ul>
     </nav>
   </div>
 </template>
 
 <script>
-import { entries } from '../main.js';
+import { entries, EventBus } from '../main.js';
 
 export default {
   data() {
@@ -52,7 +67,9 @@ export default {
         index: undefined,
         text: ''
       },
-      flashingCursor: true
+      flashingCursor: true,
+      activeSections: [],
+      sections: ['Skillsets', 'Portfolio', 'Blog', 'Contact']
     };
   },
   watch: {
@@ -122,9 +139,27 @@ export default {
   mounted() {
     this.adjustAngle();
     document.addEventListener('scroll', this.adjustAngle);
+
+    EventBus.$on('setActiveSection', section => {
+      if (section.type == 'Description') return;
+
+      if (section.isVisible && this.activeSections.indexOf(section.type) < 0) {
+        this.activeSections.unshift(section.type);
+      }
+
+      if (
+        !section.isVisible &&
+        this.activeSections.indexOf(section.type) >= 0
+      ) {
+        this.activeSections = this.activeSections.filter(
+          item => item != section.type
+        );
+      }
+    });
   },
   destroyed() {
     document.removeEventListener('scroll', this.adjustAngle);
+    EventBus.$off('setActiveSection');
   }
 };
 </script>
@@ -248,7 +283,8 @@ nav {
         position: relative;
         opacity: 1;
 
-        &:hover {
+        &:hover,
+        &.active {
           border-top: 3px solid white;
           padding-top: 8px;
         }
@@ -272,7 +308,8 @@ nav + nav {
   ul li a {
     border-color: $font-color;
 
-    &:hover {
+    &:hover,
+    &.active {
       border-top: 3px solid $font-color;
     }
   }

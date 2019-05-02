@@ -1,5 +1,5 @@
 <template>
-  <div class="skills">
+  <div>
     <div class="col-3" v-if="skillsets.length > 0">
       <article
         class="skillset"
@@ -26,44 +26,7 @@
       </article>
       <article class="dev-workflow">
         <h3>Development Workflow <font-awesome-icon icon="layer-group" /></h3>
-        <div>
-          <p>
-            The primary stack I like to build on is known as
-            <a href="https://jamstack.org/">JAMstack</a>, which is a modern web
-            development architecture based on client-side
-            <strong>JavaScript</strong>, reusable <strong>APIs</strong>, and
-            prebuilt <strong>Markup</strong>. This allows for me to build
-            websites and applications with better performance, higher security,
-            and lower cost of scaling.
-          </p>
-
-          <p>
-            I will typically reach for
-            <a href="https://vuejs.org/">Vue.js</a> to begin each project and
-            add on additional functionality based on the scope. For projects
-            that require optimal performance and SEO,
-            <a href="https://nuxtjs.org/">Nuxt.js</a> or
-            <a href="https://gridsome.org/">Gridsome</a> can be used to generate
-            pre-rendered (Static) or server side rendered (SSR) applications.
-            For large sites with many nested components and data traversal, I
-            will include <a href="https://vuex.vuejs.org/">Vuex</a> as the
-            central state management library.
-          </p>
-
-          <p>
-            Content management is done through headless CMS platforms such as
-            <a href="https://contentful.com/">Contentful</a> or
-            <a href="https://prismic.io/">Prismic</a>, where I am able to fetch
-            the data through APIs into the application.
-          </p>
-
-          <p>
-            I also develop many websites on the
-            <strong>LAMP Stack</strong>, primarily using
-            <a href="https://wordpress.org/">Wordpress</a> or
-            <a href="https://www.concrete5.org/">Concrete5</a> as the CMS.
-          </p>
-        </div>
+        <div v-html="workflow"></div>
       </article>
     </div>
   </div>
@@ -71,11 +34,13 @@
 
 <script>
 import { entries } from '../main.js';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 export default {
   data() {
     return {
-      skillsets: []
+      skillsets: [],
+      workflow: ''
     };
   },
   beforeMount() {
@@ -83,6 +48,10 @@ export default {
       this.skillsets = items.map(({ fields, sys }) => {
         return { ...fields, ...sys };
       });
+    });
+
+    entries('siteSettings').then(({ items }) => {
+      this.workflow = documentToHtmlString(items[0].fields.developmentWorkflow);
     });
   }
 };

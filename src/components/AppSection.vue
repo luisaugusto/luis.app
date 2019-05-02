@@ -1,5 +1,10 @@
 <template>
-  <section :id="type">
+  <section
+    :id="type"
+    v-observe-visibility="{
+      callback: activeSection
+    }"
+  >
     <h2
       v-if="header"
       v-observe-visibility="{
@@ -21,6 +26,7 @@ import Skillsets from './Skillsets.vue';
 import Portfolio from './Portfolio.vue';
 import Blog from './Blog.vue';
 import Contact from './Contact.vue';
+import { EventBus } from '../main.js';
 
 export default {
   props: {
@@ -38,6 +44,12 @@ export default {
   methods: {
     toggleHeader(isVisible) {
       this.visible = isVisible;
+    },
+    activeSection(isVisible) {
+      EventBus.$emit('setActiveSection', {
+        type: this.type,
+        isVisible
+      });
     }
   },
   components: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div id="app">
     <app-header />
     <router-view class="page" />
   </div>
@@ -28,19 +28,15 @@ body {
   background-image: url(../public/textures/asfalt-dark.png);
 }
 
-.app {
+#app {
   font-family: 'Montserrat', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;
+}
 
-  .page {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 var(--spacing);
-    box-sizing: border-box;
-  }
-
+.page,
+nav {
   a {
     text-decoration: none;
     color: inherit;
@@ -54,6 +50,13 @@ body {
       opacity: 1;
     }
   }
+}
+
+.page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 var(--spacing);
+  box-sizing: border-box;
 
   p {
     margin: 0 0 calc(var(--spacing) / 2) 0;

@@ -18,6 +18,9 @@
 <script>
 import Description from './Description.vue';
 import Skillsets from './Skillsets.vue';
+import Portfolio from './Portfolio.vue';
+import Blog from './Blog.vue';
+import Contact from './Contact.vue';
 
 export default {
   props: {
@@ -39,14 +42,17 @@ export default {
   },
   components: {
     Description,
-    Skillsets
+    Skillsets,
+    Portfolio,
+    Blog,
+    Contact
   }
 };
 </script>
 
 <style lang="scss">
 section {
-  margin: var(--spacing) 0;
+  margin: calc(var(--spacing) * 2) 0;
 
   h2 {
     font-size: 3em;

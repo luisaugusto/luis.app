@@ -52,9 +52,9 @@ section {
     font-size: 3em;
     font-weight: normal;
     border-left: 5px solid var(--accent-color);
-    margin: 0;
+    margin: 0 0 var(--spacing);
     text-transform: capitalize;
-    transition: clip-path 0.5s;
+    transition: clip-path 0.7s;
     clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0 50%);
     overflow: hidden;
 
@@ -63,7 +63,7 @@ section {
       position: relative;
       padding-left: var(--spacing);
       transform: translateX(-100%);
-      transition: transform 0.5s 0.3s;
+      transition: transform 0.7s 0.5s;
 
       &:first-letter {
         font-weight: bold;
@@ -84,14 +84,13 @@ section {
     grid-gap: var(--spacing);
     grid-template-columns: 1fr 1fr 1fr;
 
-    @media (max-width: 767px) {
-      grid-template-columns: auto;
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
     }
   }
 
   article {
     position: relative;
-    margin: var(--spacing) 0;
     filter: drop-shadow(5px 5px 0px var(--accent-color));
 
     $clip: var(--spacing);

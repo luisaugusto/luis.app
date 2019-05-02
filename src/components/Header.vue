@@ -26,8 +26,7 @@
     <nav
       v-for="i in 2"
       :key="'nav' + i"
-      :class="{ hide: navTransition && i === 1,
-      bg : navTransition && i === 2 }"
+      :class="{ hide: navTransition && i === 1, bg: navTransition && i === 2 }"
     >
       <ul>
         <li><a href="#">Home</a></li>
@@ -133,7 +132,7 @@ export default {
 <style lang="scss" scoped>
 header,
 nav {
-  color: #efefef;
+  color: white;
 }
 
 header {
@@ -171,7 +170,7 @@ header {
 
         &.active {
           opacity: 1;
-          transform: scale(1.05) translateX(-50%);
+          transform: scale(1.025) translateX(-50%);
           transition: opacity 0.5s, transform 15s;
         }
       }
@@ -206,7 +205,7 @@ header {
           font-size: 13vw;
 
           + span {
-            font-size: 8vw;
+            font-size: 7vw;
           }
         }
       }
@@ -247,7 +246,6 @@ nav {
         margin: 0 15px;
         transition: all 0.1s ease-out;
         position: relative;
-        font-weight: normal;
         opacity: 1;
 
         &:hover {
@@ -263,22 +261,12 @@ nav + nav {
   $font-color: black;
   color: $font-color;
   z-index: 1;
-  mix-blend-mode: normal;
+  mix-blend-mode: difference;
   border-bottom: 3px solid var(--accent-color);
+  transition: background 0.5s;
 
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-    transition: all 0.3s;
-  }
-
-  &.bg:before {
-    background: var(--accent-color);
+  &.bg {
+    background: rgba(255, 255, 255, 0.5);
   }
 
   ul li a {
@@ -287,6 +275,17 @@ nav + nav {
     &:hover {
       border-top: 3px solid $font-color;
     }
+  }
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) OR (backdrop-filter: blur(1px)) {
+  nav + nav {
+    mix-blend-mode: normal;
+  }
+
+  nav + nav.bg {
+    backdrop-filter: blur(5px);
+    background: none;
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div :class="['description', { imgLoaded }]">
     <div>
-      <img src="img.jpg" alt="Luis Augusto" @load="imgLoaded = true" />
+      <img src="headshot.webp" alt="Luis Augusto" @load="imgLoaded = true" />
     </div>
     <p>
       <span>I am a fullstack developer with a focus on</span>

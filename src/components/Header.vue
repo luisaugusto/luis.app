@@ -69,7 +69,7 @@ export default {
       },
       flashingCursor: true,
       activeSections: [],
-      sections: ['Skillsets', 'Portfolio', 'Blog', 'Contact']
+      sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
     };
   },
   watch: {

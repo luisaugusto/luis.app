@@ -170,5 +170,116 @@ section {
       }
     }
   }
+
+  article.portfolio-item,
+  article.blog-item {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      min-height: 200px;
+      background-size: cover;
+      padding: 0;
+      color: white;
+      text-shadow: 1px 1px var(--accent-color);
+
+      &,
+      div {
+        display: flex;
+      }
+
+      div {
+        flex: 1 1 auto;
+        align-items: flex-end;
+        background: rgba(0, 0, 0, 0.3);
+        padding: var(--spacing);
+      }
+    }
+
+    > div {
+      padding: 0;
+
+      &,
+      .info {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .info {
+        padding: var(--spacing);
+        padding-bottom: calc(var(--spacing) - 7px);
+
+        .tag {
+          padding: 5px 10px;
+          background: var(--accent-color);
+          color: white;
+          clip-path: polygon(0 50%, 15px 0, 100% 0, 100% 100%, 15px 100%);
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          margin: 0 7px 7px 0;
+
+          &:before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border: 1px solid white;
+            display: inline-block;
+            border-radius: 100%;
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+
+        a,
+        span {
+          padding: var(--spacing);
+          width: 45%;
+          text-align: center;
+        }
+
+        a {
+          background: var(--accent-color);
+          box-sizing: border-box;
+          color: white;
+          border: none;
+
+          &:first-child {
+            clip-path: polygon(
+              0 0,
+              calc(100% - var(--spacing)) 0,
+              100% var(--spacing),
+              100% 100%,
+              var(--spacing) 100%,
+              0 calc(100% - var(--spacing)),
+              0 0
+            );
+          }
+
+          &:last-child:not(:only-child) {
+            clip-path: polygon(
+              var(--spacing) 0,
+              100% 0,
+              100% calc(100% - var(--spacing)),
+              calc(100% - var(--spacing)) 100%,
+              0 100%,
+              0 var(--spacing)
+            );
+          }
+        }
+
+        span {
+          display: inline-block;
+          font-style: italic;
+        }
+      }
+    }
+  }
 }
 </style>

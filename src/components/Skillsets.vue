@@ -1,34 +1,28 @@
 <template>
-  <div>
-    <div class="col-3" v-if="skillsets.length > 0">
-      <article
-        class="skillset"
-        v-for="skillset in skillsets"
-        :key="skillset.id"
-      >
-        <h3>{{ skillset.title }}<font-awesome-icon :icon="skillset.icon" /></h3>
-        <div>
-          <div
-            v-for="skills in skillset.skillsetGroups"
-            :key="skillset.id + skills.sys.id"
-          >
-            <h4>{{ skills.fields.title }}</h4>
-            <ul>
-              <li
-                v-for="(skill, index) in skills.fields.skills"
-                :key="skillset.id + skills.sys.id + index"
-              >
-                {{ skill }}
-              </li>
-            </ul>
-          </div>
+  <div class="col-3" v-if="skillsets.length > 0">
+    <article class="skillset" v-for="skillset in skillsets" :key="skillset.id">
+      <h3>{{ skillset.title }}<font-awesome-icon :icon="skillset.icon" /></h3>
+      <div>
+        <div
+          v-for="skills in skillset.skillsetGroups"
+          :key="skillset.id + skills.sys.id"
+        >
+          <h4>{{ skills.fields.title }}</h4>
+          <ul>
+            <li
+              v-for="(skill, index) in skills.fields.skills"
+              :key="skillset.id + skills.sys.id + index"
+            >
+              {{ skill }}
+            </li>
+          </ul>
         </div>
-      </article>
-      <article class="dev-workflow">
-        <h3>Development Workflow <font-awesome-icon icon="layer-group" /></h3>
-        <div v-html="workflow"></div>
-      </article>
-    </div>
+      </div>
+    </article>
+    <article class="dev-workflow">
+      <h3>Development Workflow <font-awesome-icon icon="layer-group" /></h3>
+      <div v-html="workflow"></div>
+    </article>
   </div>
 </template>
 

@@ -45,6 +45,26 @@
         v-model="labelStates.email.text"
       />
     </label>
+    <label class="subject">
+      <span
+        :class="[
+          'label-text',
+          {
+            active:
+              labelStates.subject.active || labelStates.subject.text.length > 0
+          }
+        ]"
+        >Subject</span
+      >
+      <input
+        type="text"
+        name="subject"
+        required
+        @focus="labelStates.subject.active = true"
+        @blur="labelStates.subject.active = false"
+        v-model="labelStates.subject.text"
+      />
+    </label>
     <label class="textarea">
       <span
         :class="[
@@ -86,6 +106,10 @@ export default {
           active: false
         },
         email: {
+          text: '',
+          active: false
+        },
+        subject: {
           text: '',
           active: false
         },
@@ -131,7 +155,8 @@ form {
     position: relative;
     font-size: 2em;
 
-    &.textarea {
+    &.textarea,
+    &.subject {
       grid-column: 1/-1;
 
       span.calc-line {

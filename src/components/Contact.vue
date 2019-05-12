@@ -1,7 +1,5 @@
 <template>
   <form name="contact" method="post" netlify data-netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="contact" />
-
     <p>
       Feel free to contact me if you have any questions about my work, you want
       to build something awesome, or if you just want to chat.

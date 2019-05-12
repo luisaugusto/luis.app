@@ -97,6 +97,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -129,6 +131,28 @@ export default {
 
       this.$refs.message.style.height = currentHeight + 'px';
       this.$refs.message.style.height = newHeight + 'px';
+    },
+    handleSubmit () {
+      const axiosConfig = {
+        header: { "Content-Type": "application/x-www-form-urlencoded" }
+      };
+      axios.post(
+        "/",
+        this.encode({
+          "form-name": "contact",
+          name: this.labelStates.name.text,
+          email: this.labelStates.email.text,
+          subject: this.labelStates.subject.text,
+          message: this.labelStates.message.text,
+        }),
+        axiosConfig
+      )
+      .then(() => {
+        alert('form submitted');
+      })
+      .catch(() => {
+        alert('form error');
+      });
     }
   }
 };

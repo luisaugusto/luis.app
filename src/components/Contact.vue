@@ -1,5 +1,6 @@
 <template>
-  <form name="contact" method="post" netlify data-netlify-honeypot="bot-field">
+  <form name="contact" method="post" netlify data-netlify-honeypot="bot-field"  @submit.prevent="handleSubmit">
+
     <input type="hidden" name="form-name" value="contact" />
 
     <p>

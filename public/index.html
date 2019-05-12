@@ -12,10 +12,11 @@
   <body>
     <div id="app"></div>
 
-    <form name="contact" method="POST" netlify hidden netlify-honeypot="bot-field">
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
-      <input type="email" name="email" />
+      <input type="text" name="email" />
       <textarea name="message"></textarea>
+      <input type="hidden" name="form-name" value="contact" />
     </form>
   </body>
 </html>

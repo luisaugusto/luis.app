@@ -38,7 +38,7 @@ export default {
     };
   },
   beforeMount() {
-    entries('skillsets').then(({ items }) => {
+    entries('skillsets', 'fields.order').then(({ items }) => {
       this.skillsets = items.map(({ fields, sys }) => {
         return { ...fields, ...sys };
       });

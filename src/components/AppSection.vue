@@ -220,6 +220,8 @@ section {
           display: inline-flex;
           align-items: center;
           margin: 0 7px 7px 0;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
 
           &:before {
             content: '';

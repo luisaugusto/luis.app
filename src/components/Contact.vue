@@ -100,14 +100,13 @@
         ></textarea>
       </label>
       <div>
-        <span class="success" v-if="status == 'success'"
-          >Thanks for your message!</span
-        >
-        <span class="error" v-if="status == 'error'"
-          >There was an error sending your message. Please try again or send me
-          an email at
-          <a href="mailto:hello@luis.codes">hello@luis.codes</a>.</span
-        >
+        <div class="success" v-if="status == 'success'">
+          Thanks for your message!
+        </div>
+        <div class="error" v-if="status == 'error'">
+          There was an error sending your message. Please try again or send me
+          an email at <a href="mailto:hello@luis.codes">hello@luis.codes</a>.
+        </div>
         <button type="submit" :class="{ sending }" @mousemove="adjustMousePos">
           <span v-if="this.sending">Sending...</span>
           <span v-else>Submit</span>
@@ -120,6 +119,7 @@
 
 <script>
 import axios from 'axios';
+import { setTimeout } from 'timers';
 
 export default {
   data() {
@@ -192,9 +192,12 @@ export default {
           this.labelStates.email.text = '';
           this.labelStates.subject.text = '';
           this.labelStates.message.text = '';
-          this.resizeTextarea();
           this.status = 'success';
           this.sending = false;
+
+          setTimeout(() => {
+            this.resizeTextarea();
+          }, 2);
         })
         .catch(() => {
           this.status = 'error';
@@ -278,6 +281,10 @@ form {
     grid-column: 1/-1;
     justify-content: flex-end;
     align-items: center;
+
+    > div {
+      margin-right: var(--spacing);
+    }
 
     .error {
       color: red;

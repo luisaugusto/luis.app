@@ -52,9 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1025px) {
-  .dev-workflow {
-    grid-column: span 3;
-  }
+.dev-workflow {
+  grid-column: 1/-1;
 }
 </style>

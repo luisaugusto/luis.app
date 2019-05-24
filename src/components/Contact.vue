@@ -107,10 +107,9 @@
           There was an error sending your message. Please try again or send me
           an email at <a href="mailto:hello@luis.codes">hello@luis.codes</a>.
         </div>
-        <button type="submit" :class="{ sending }" @mousemove="adjustMousePos">
+        <button type="submit" :class="{ sending }">
           <span v-if="this.sending">Sending...</span>
           <span v-else>Submit</span>
-          <div class="light" :style="lightPos"></div>
         </button>
       </div>
     </form>
@@ -143,18 +142,10 @@ export default {
         }
       },
       sending: false,
-      status: '',
-      lightPos: {
-        left: '0px',
-        top: '0px'
-      }
+      status: ''
     };
   },
   methods: {
-    adjustMousePos(ev) {
-      this.lightPos.left = ev.offsetX + 'px';
-      this.lightPos.top = ev.offsetY + 'px';
-    },
     resizeTextarea() {
       const currentHeight = this.$refs.message.clientHeight;
       this.$refs.message.removeAttribute('style');
@@ -297,7 +288,7 @@ form {
       box-shadow: none;
       color: white;
       padding: calc(var(--spacing) / 2);
-      transition: all 0.5s;
+      transition: all 0.3s;
       cursor: pointer;
       position: relative;
       z-index: 1;
@@ -309,27 +300,8 @@ form {
         pointer-events: none;
       }
 
-      .light {
-        width: 70px;
-        height: 70px;
-        background: white;
-        filter: blur(25px);
-        border-radius: 100%;
-        opacity: 1;
-        position: absolute;
-        left: 0;
-        top: 0;
-        transition: opacity 0.2s;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0;
-      }
-
       &:hover {
-        .light {
-          opacity: 0.3;
-        }
+        opacity: 0.8;
       }
     }
   }

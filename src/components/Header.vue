@@ -2,17 +2,33 @@
   <div>
     <header ref="header">
       <div
-        :style="{ clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)` }"
+        :style="{
+          clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`,
+          '-webkit-clip-path': `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`
+        }"
       >
         <div class="backgrounds">
-          <img
-            v-for="({ title, background }, i) in titles"
-            :src="background"
-            :key="title"
-            :alt="title"
+          <picture
+            v-for="(img, i) in titles"
+            :key="img.title"
             :class="{ active: currentSubtitle.index == i }"
-            @load="firstTitleLoaded = true"
-          />
+          >
+            <source
+              :srcset="img.background"
+              type="image/webp"
+              @load="firstTitleLoaded = true"
+            />
+            <source
+              :srcset="img.fallback"
+              type="image/jpeg"
+              @load="firstTitleLoaded = true"
+            />
+            <img
+              :src="img.fallback"
+              :alt="img.title"
+              @load="firstTitleLoaded = true"
+            />
+          </picture>
         </div>
         <div class="page-title" :style="{ height: angle + '%' }">
           <h1>Luis Augusto</h1>
@@ -86,7 +102,10 @@ export default {
   methods: {
     adjustAngle() {
       const headerHeight = this.$refs.header.clientHeight;
-      this.angle = Math.min(50 + window.scrollY / (headerHeight / 50), 100);
+      this.angle =
+        Math.floor(
+          Math.min(50 + window.scrollY / (headerHeight / 50), 100) * 100
+        ) / 100;
     },
     typeSubtitles(str, cur = 0, del = false) {
       //Checks if the word is finished being deleted while in delete mode
@@ -131,7 +150,8 @@ export default {
       this.titles = items.map(({ fields }) => {
         return {
           title: fields.title,
-          background: fields.image.fields.file.url
+          background: fields.image.fields.file.url,
+          fallback: fields.imageFallback.fields.file.url
         };
       });
     });
@@ -188,14 +208,14 @@ header {
       background-color: #999;
 
       &,
-      img {
+      picture {
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
       }
 
-      img {
+      picture {
         object-fit: cover;
         left: 50%;
         opacity: 0;
@@ -283,6 +303,10 @@ nav {
         position: relative;
         opacity: 1;
 
+        @media (max-width: 600px) {
+          margin: 0 10px;
+        }
+
         &:hover,
         &.active {
           border-top: 3px solid white;
@@ -297,12 +321,12 @@ nav + nav {
   $font-color: black;
   color: $font-color;
   z-index: 1;
-  mix-blend-mode: difference;
   border-bottom: 3px solid var(--accent-color);
   transition: background 0.5s;
+  mix-blend-mode: normal;
 
   &.bg {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
   }
 
   ul li a {
@@ -316,10 +340,6 @@ nav + nav {
 }
 
 @supports (-webkit-backdrop-filter: blur(1px)) OR (backdrop-filter: blur(1px)) {
-  nav + nav {
-    mix-blend-mode: normal;
-  }
-
   nav + nav.bg {
     backdrop-filter: blur(5px);
     background: none;

@@ -1,11 +1,15 @@
 <template>
   <div class="col-3" v-if="portfolio.length > 0">
     <article class="portfolio-item" v-for="site in portfolio" :key="site.id">
-      <h3
-        :style="{
-          'background-image': `url(${site.image.fields.file.url})`
-        }"
-      >
+      <h3>
+        <picture>
+          <source :srcset="site.image.fields.file.url" type="image/webp" />
+          <source
+            :srcset="site.imageFallback.fields.file.url"
+            type="image/jpeg"
+          />
+          <img :src="site.imageFallback.fields.file.url" />
+        </picture>
         <div>{{ site.title }}</div>
       </h3>
       <div>

@@ -100,11 +100,7 @@ section {
   .col-3 {
     display: grid;
     grid-gap: var(--spacing);
-    grid-template-columns: 1fr 1fr 1fr;
-
-    @media (max-width: 1024px) {
-      grid-template-columns: 1fr;
-    }
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   }
 
   article {
@@ -179,9 +175,11 @@ section {
     h3 {
       min-height: 200px;
       background-size: cover;
+      background-position: center;
       padding: 0;
       color: white;
       text-shadow: 1px 1px var(--accent-color);
+      position: relative;
 
       &,
       div {
@@ -193,6 +191,15 @@ section {
         align-items: flex-end;
         background: rgba(0, 0, 0, 0.3);
         padding: var(--spacing);
+      }
+
+      picture {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     }
 

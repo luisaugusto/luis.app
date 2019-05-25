@@ -207,11 +207,15 @@ p {
   padding: var(--spacing) calc(var(--spacing) * 2);
   padding-top: 0;
   text-align: center;
+
+  @media (max-width: 450px) {
+    padding: var(--spacing);
+  }
 }
 
 form {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: var(--spacing);
 
   label {

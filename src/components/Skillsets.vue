@@ -54,5 +54,13 @@ export default {
 <style lang="scss" scoped>
 .dev-workflow {
   grid-column: 1/-1;
+
+  h3 {
+    align-items: center;
+
+    svg {
+      margin-right: 15px;
+    }
+  }
 }
 </style>

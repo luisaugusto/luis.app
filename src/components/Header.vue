@@ -30,7 +30,7 @@
             />
           </picture>
         </div>
-        <div class="page-title" :style="{ height: angle + '%' }">
+        <div class="page-title" :style="{ height: angle + 20 + '%' }">
           <h1>Luis Augusto</h1>
           <span
             ><span class="spacer">_</span>{{ currentSubtitle.text
@@ -39,11 +39,7 @@
         </div>
       </div>
     </header>
-    <nav
-      v-for="i in 2"
-      :key="'nav' + i"
-      :class="{ hide: navTransition && i === 1, bg: navTransition && i === 2 }"
-    >
+    <nav>
       <ul>
         <li>
           <a
@@ -92,11 +88,6 @@ export default {
     firstTitleLoaded() {
       this.currentSubtitle.index = 0;
       this.typeSubtitles(this.titles[0].title);
-    }
-  },
-  computed: {
-    navTransition() {
-      return this.angle == 100 ? true : false;
     }
   },
   methods: {
@@ -185,16 +176,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header,
-nav {
-  color: white;
-}
-
 header {
   z-index: 2;
   filter: drop-shadow(0px 5px 0px var(--accent-color));
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
   position: relative;
+  color: white;
 
   > div {
     height: 50vh;
@@ -273,15 +260,15 @@ nav {
   top: 0;
   right: 0;
   padding: 15px;
-  z-index: 3;
+  z-index: 2;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  mix-blend-mode: color-dodge;
+  border-bottom: 3px solid var(--accent-color);
+  background: rgba(#fff, 0.6);
 
-  &.hide {
-    opacity: 0;
-    visibility: hidden;
+  @media (max-width: 600px) {
+    display: none;
   }
 
   ul {
@@ -295,7 +282,7 @@ nav {
 
       a {
         display: block;
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-top: 1px solid #333;
         border-bottom: none;
         padding: 10px 10px 0 10px;
         margin: 0 15px;
@@ -303,13 +290,9 @@ nav {
         position: relative;
         opacity: 1;
 
-        @media (max-width: 600px) {
-          margin: 0 10px;
-        }
-
         &:hover,
         &.active {
-          border-top: 3px solid white;
+          border-top-width: 3px;
           padding-top: 8px;
         }
       }
@@ -317,32 +300,10 @@ nav {
   }
 }
 
-nav + nav {
-  $font-color: black;
-  color: $font-color;
-  z-index: 1;
-  border-bottom: 3px solid var(--accent-color);
-  transition: background 0.5s;
-  mix-blend-mode: normal;
-
-  &.bg {
-    background: rgba(255, 255, 255, 0.7);
-  }
-
-  ul li a {
-    border-color: $font-color;
-
-    &:hover,
-    &.active {
-      border-top: 3px solid $font-color;
-    }
-  }
-}
-
 @supports (-webkit-backdrop-filter: blur(1px)) OR (backdrop-filter: blur(1px)) {
-  nav + nav.bg {
+  nav {
     backdrop-filter: blur(5px);
-    background: none;
+    background: rgba(#fff, 0.2);
   }
 }
 

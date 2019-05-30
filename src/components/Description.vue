@@ -64,6 +64,7 @@ export default {
       position: relative;
       left: 50%;
       transform: translateX(-50%);
+      max-width: 100%;
     }
   }
 
@@ -123,6 +124,7 @@ export default {
       margin: 0 45px 0 15px;
       filter: drop-shadow(15px 0px 0 var(--accent-color))
         drop-shadow(-15px 0px 0 var(--accent-color));
+      max-width: 100%;
 
       @media (max-width: 1169px) {
         margin: 0 auto 15px;

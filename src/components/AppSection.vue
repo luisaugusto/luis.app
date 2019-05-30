@@ -70,7 +70,7 @@ section {
     font-size: 3em;
     font-weight: normal;
     border-left: 5px solid var(--accent-color);
-    margin: 0 0 var(--spacing);
+    margin: 0 0 calc(var(--spacing));
     text-transform: capitalize;
     transition: clip-path 0.7s;
     clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0 50%);
@@ -101,6 +101,10 @@ section {
     display: grid;
     grid-gap: var(--spacing);
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+
+    @media (max-width: 420px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   article {

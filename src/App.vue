@@ -20,6 +20,11 @@ export default {
   --accent-color: #009063;
   --font-size: 16px;
   --spacing: 30px;
+
+  @media (max-width: 650px) {
+    --spacing: 20px;
+    --font-size: 12px;
+  }
 }
 
 body {

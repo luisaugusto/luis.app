@@ -203,7 +203,7 @@ export default {
 p {
   grid-column: 1/-1;
   font-size: 1.4em;
-  margin: 0;
+  margin: 0 0 var(--spacing);
   padding: var(--spacing) calc(var(--spacing) * 2);
   padding-top: 0;
   text-align: center;

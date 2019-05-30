@@ -41,16 +41,6 @@
     </header>
     <nav>
       <ul>
-        <li>
-          <a
-            href="#"
-            v-scroll-to="'#app'"
-            :class="{
-              active: activeSections.length === 0
-            }"
-            >Home</a
-          >
-        </li>
         <li v-for="(section, i) in sections" :key="section + i">
           <a
             href="#"
@@ -259,7 +249,6 @@ nav {
   position: fixed;
   top: 0;
   right: 0;
-  padding: 15px;
   z-index: 2;
   width: 100%;
   display: flex;
@@ -267,15 +256,17 @@ nav {
   border-bottom: 3px solid var(--accent-color);
   background: rgba(#fff, 0.6);
 
-  @media (max-width: 600px) {
-    display: none;
-  }
-
   ul {
-    margin: 0 -15px;
-    padding: 0;
+    margin: 0;
+    padding: 15px;
     list-style: none;
     display: flex;
+
+    @media (max-width: 650px) {
+      justify-content: space-between;
+      width: 100vw;
+      box-sizing: border-box;
+    }
 
     li {
       margin-bottom: 0;
@@ -289,6 +280,10 @@ nav {
         transition: all 0.1s ease-out;
         position: relative;
         opacity: 1;
+
+        @media (max-width: 650px) {
+          margin: 0;
+        }
 
         &:hover,
         &.active {

@@ -215,8 +215,12 @@ p {
 
 form {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   grid-gap: var(--spacing);
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
 
   label {
     position: relative;

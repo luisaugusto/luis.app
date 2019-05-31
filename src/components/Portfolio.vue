@@ -8,7 +8,7 @@
             :srcset="site.imageFallback.fields.file.url"
             type="image/jpeg"
           />
-          <img :src="site.imageFallback.fields.file.url" />
+          <img :src="site.imageFallback.fields.file.url" :alt="site.title"/>
         </picture>
         <div>{{ site.title }}</div>
       </h3>
@@ -22,11 +22,11 @@
           </div>
         </div>
         <div class="buttons">
-          <a target="_blank" v-if="site.liveUrl" :href="site.liveUrl"
+          <a target="_blank" v-if="site.liveUrl" :href="site.liveUrl" rel="noreferrer"
             >View Site</a
           >
           <a
-            target="_blank"
+            target="_blank" rel="noreferrer"
             v-if="site.repositoryUrl"
             :href="site.repositoryUrl"
             >View Repo</a

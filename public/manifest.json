@@ -1,0 +1,22 @@
+{
+  "short_name": "luis.codes",
+  "name": "luis.codes",
+  "description": "FullStack JavaScript Developer",
+  "icons": [
+    {
+      "src": "/img/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?utm_source=pwa",
+  "background_color": "#009063",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#009063"
+}

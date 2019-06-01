@@ -30,7 +30,7 @@ export default {
 body {
   margin: 0;
   font-size: var(--font-size);
-  background-image: url(../public/textures/asfalt-dark.png);
+  background-image: url(../public/img/textures/asfalt-dark.png);
 }
 
 #app {

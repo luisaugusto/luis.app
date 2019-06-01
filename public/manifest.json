@@ -1,22 +1,20 @@
 {
-  "short_name": "luis.codes",
   "name": "luis.codes",
-  "description": "FullStack JavaScript Developer",
+  "short_name": "luis.codes",
   "icons": [
     {
-      "src": "/img/icons/icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "./img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/img/icons/icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "./img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": "/?utm_source=pwa",
-  "background_color": "#009063",
+  "start_url": "./index.html",
   "display": "standalone",
-  "scope": "/",
+  "background_color": "#009063",
   "theme_color": "#009063"
 }

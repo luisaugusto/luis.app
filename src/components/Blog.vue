@@ -12,7 +12,7 @@
           <p>{{ post.description }}</p>
         </div>
         <div class="buttons">
-          <a target="_blank" :href="post.link">Read More</a>
+          <a target="_blank" :href="post.link" rel="noreferrer">Read More</a>
 
           <span>{{ post.date }}</span>
         </div>

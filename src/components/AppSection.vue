@@ -123,7 +123,7 @@ section {
       width: 100%;
       height: 100%;
       background: white;
-      background-image: url(../../public/textures/brilliant.png);
+      background-image: url(../../public/img/textures/brilliant.png);
 
       clip-path: polygon(
         $clip 0,

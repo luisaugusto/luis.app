@@ -226,6 +226,10 @@ form {
     position: relative;
     font-size: 2em;
 
+    @media (max-width: 650px) {
+      font-size: 1.5em;
+    }
+
     &.textarea,
     &.subject {
       grid-column: 1/-1;

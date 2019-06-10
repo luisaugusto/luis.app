@@ -38,20 +38,24 @@
 </template>
 
 <script>
-import { entries } from '../main.js';
+import {createClient} from '~/plugins/contentful.js';
+const client = createClient();
 
 export default {
-  data() {
-    return {
-      portfolio: []
-    };
-  },
-  beforeMount() {
-    entries('portfolio', 'fields.order').then(({ items }) => {
-      this.portfolio = items.map(({ fields, sys }) => {
-        return { ...fields, ...sys };
-      });
-    });
-  }
+	data() {
+		return {
+			portfolio: []
+		};
+	},
+	beforeMount() {
+		client.getEntries({
+			'content_type': 'portfolio',
+			order: 'fields.order'
+		}).then(({ items }) => {
+			this.portfolio = items.map(({ fields, sys }) => {
+				return { ...fields, ...sys };
+			});
+		});
+	}
 };
 </script>

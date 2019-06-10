@@ -12,8 +12,8 @@
 import AppSection from '../components/AppSection.vue';
 
 export default {
-  components: {
-    AppSection
-  }
+	components: {
+		AppSection
+	}
 };
 </script>

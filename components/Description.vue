@@ -3,16 +3,16 @@
     <div>
       <picture>
         <source
-          srcset="/img/photos/headshot.webp"
+          srcset="/photos/headshot.webp"
           type="image/webp"
           @load="imgLoaded = true"
         />
         <source
-          srcset="/img/photos/headshot.jpg"
+          srcset="/photos/headshot.jpg"
           type="image/jpeg"
           @load="imgLoaded = true"
         />
-        <img src="/img/photos/headshot.jpg" @load="imgLoaded = true" alt="Luis Augusto" />
+        <img src="/photos/headshot.jpg" @load="imgLoaded = true" alt="Luis Augusto" />
       </picture>
     </div>
     <p>
@@ -25,11 +25,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-      imgLoaded: false
-    };
-  }
+	data() {
+		return {
+			imgLoaded: false
+		};
+	}
 };
 </script>
 
@@ -109,7 +109,7 @@ export default {
         position: absolute;
         bottom: 0;
         background: red;
-        background-image: url(../../public/img/textures/subtle-grey.png);
+        background-image: url(/textures/subtle-grey.png);
         width: 100%;
         height: 100%;
         transition: background-color 0.75s $btd, height 0.75s (0.5s + $btd);

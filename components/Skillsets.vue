@@ -27,27 +27,34 @@
 </template>
 
 <script>
-import { entries } from '../main.js';
+import {createClient} from '~/plugins/contentful.js';
+const client = createClient();
+
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 export default {
-  data() {
-    return {
-      skillsets: [],
-      workflow: ''
-    };
-  },
-  beforeMount() {
-    entries('skillsets', 'fields.order').then(({ items }) => {
-      this.skillsets = items.map(({ fields, sys }) => {
-        return { ...fields, ...sys };
-      });
-    });
+	data() {
+		return {
+			skillsets: [],
+			workflow: ''
+		};
+	},
+	beforeMount() {
+		client.getEntries({
+			'content_type': 'skillsets',
+			order: 'fields.order'
+		}).then(({ items }) => {
+			this.skillsets = items.map(({ fields, sys }) => {
+				return { ...fields, ...sys };
+			});
+		});
 
-    entries('siteSettings').then(({ items }) => {
-      this.workflow = documentToHtmlString(items[0].fields.developmentWorkflow);
-    });
-  }
+		client.getEntries({
+			'content_type': 'siteSettings'
+		}).then(({ items }) => {
+			this.workflow = documentToHtmlString(items[0].fields.developmentWorkflow);
+		});
+	}
 };
 </script>
 

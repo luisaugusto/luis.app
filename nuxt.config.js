@@ -1,5 +1,8 @@
 export default {
 	mode: 'universal',
+	/*
+   ** Headers of the page
+   */
 	head: {
 		title: process.env.npm_package_name || '',
 		meta: [
@@ -12,6 +15,10 @@ export default {
 			}
 		],
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+	},
+	env: {
+		CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+		CTF_ACCESS_TOKEN: process.env.CTF_ACCESS_TOKEN
 	},
 	/*
    ** Customize the progress-bar color

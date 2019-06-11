@@ -1,5 +1,3 @@
-import contentful from './.contentful.json';
-
 export default {
 	mode: 'universal',
 	/*
@@ -22,12 +20,6 @@ export default {
    ** Customize the progress-bar color
    */
 	loading: { color: '#fff' },
-
-	env: {
-		CONTENTFUL_SPACE_ID: contentful.CONTENTFUL_SPACE_ID,
-		CONTENTFUL_ACCESS_TOKEN: contentful.CONTENTFUL_ACCESS_TOKEN
-	},
-
 	/*
    ** Global CSS
    */
@@ -47,7 +39,8 @@ export default {
 		// Doc: https://axios.nuxtjs.org/usag
 		'@nuxtjs/axios',
 		'@nuxtjs/pwa',
-		'@nuxtjs/eslint-module'
+		'@nuxtjs/eslint-module',
+		'@nuxtjs/dotenv'
 	],
 	/*
    ** Axios module configuration

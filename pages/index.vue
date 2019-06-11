@@ -11,6 +11,8 @@
 <script>
 import AppSection from '../components/AppSection.vue';
 
+console.log(process.env.CONTENTFUL_ACCESS_TOKEN);
+
 export default {
 	components: {
 		AppSection

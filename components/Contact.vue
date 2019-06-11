@@ -121,81 +121,81 @@ import axios from 'axios';
 import { setTimeout } from 'timers';
 
 export default {
-  data() {
-    return {
-      labelStates: {
-        name: {
-          text: '',
-          active: false
-        },
-        email: {
-          text: '',
-          active: false
-        },
-        subject: {
-          text: '',
-          active: false
-        },
-        message: {
-          text: '',
-          active: false
-        }
-      },
-      sending: false,
-      status: ''
-    };
-  },
-  methods: {
-    resizeTextarea() {
-      const currentHeight = this.$refs.message.clientHeight;
-      this.$refs.message.removeAttribute('style');
-      const newHeight = this.$refs.message.scrollHeight;
+	data() {
+		return {
+			labelStates: {
+				name: {
+					text: '',
+					active: false
+				},
+				email: {
+					text: '',
+					active: false
+				},
+				subject: {
+					text: '',
+					active: false
+				},
+				message: {
+					text: '',
+					active: false
+				}
+			},
+			sending: false,
+			status: ''
+		};
+	},
+	methods: {
+		resizeTextarea() {
+			const currentHeight = this.$refs.message.clientHeight;
+			this.$refs.message.removeAttribute('style');
+			const newHeight = this.$refs.message.scrollHeight;
 
-      this.$refs.message.style.height = currentHeight + 'px';
-      this.$refs.message.style.height = newHeight + 'px';
-    },
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join('&');
-    },
-    handleSubmit() {
-      this.sending = true;
-      const axiosConfig = {
-        header: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      };
-      axios
-        .post(
-          '/',
-          this.encode({
-            'form-name': 'contact',
-            name: this.labelStates.name.text,
-            email: this.labelStates.email.text,
-            subject: this.labelStates.subject.text,
-            message: this.labelStates.message.text
-          }),
-          axiosConfig
-        )
-        .then(() => {
-          this.labelStates.name.text = '';
-          this.labelStates.email.text = '';
-          this.labelStates.subject.text = '';
-          this.labelStates.message.text = '';
-          this.status = 'success';
-          this.sending = false;
+			this.$refs.message.style.height = currentHeight + 'px';
+			this.$refs.message.style.height = newHeight + 'px';
+		},
+		encode(data) {
+			return Object.keys(data)
+				.map(
+					key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+				)
+				.join('&');
+		},
+		handleSubmit() {
+			this.sending = true;
+			const axiosConfig = {
+				header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			};
+			axios
+				.post(
+					'/',
+					this.encode({
+						'form-name': 'contact',
+						name: this.labelStates.name.text,
+						email: this.labelStates.email.text,
+						subject: this.labelStates.subject.text,
+						message: this.labelStates.message.text
+					}),
+					axiosConfig
+				)
+				.then(() => {
+					this.labelStates.name.text = '';
+					this.labelStates.email.text = '';
+					this.labelStates.subject.text = '';
+					this.labelStates.message.text = '';
+					this.status = 'success';
+					this.sending = false;
 
-          setTimeout(() => {
-            this.resizeTextarea();
-          }, 2);
-        })
-        .catch(() => {
-          this.status = 'error';
-          this.sending = false;
-        });
-    }
-  }
+					setTimeout(() => {
+						this.resizeTextarea();
+					}, 2);
+				})
+				.catch(() => {
+					this.status = 'error';
+					this.sending = false;
+				});
+		}
+	}
 };
 </script>
 

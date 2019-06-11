@@ -26,39 +26,39 @@ import Skillsets from './Skillsets.vue';
 import Portfolio from './Portfolio.vue';
 import Blog from './Blog.vue';
 import Contact from './Contact.vue';
-import { EventBus } from '../main.js';
+import {EventBus} from '~/plugins/bus.js';
 
 export default {
-  props: {
-    type: String,
-    header: {
-      default: true,
-      type: Boolean
-    }
-  },
-  data() {
-    return {
-      visible: false
-    };
-  },
-  methods: {
-    toggleHeader(isVisible) {
-      this.visible = isVisible;
-    },
-    activeSection(isVisible) {
-      EventBus.$emit('setActiveSection', {
-        type: this.type,
-        isVisible
-      });
-    }
-  },
-  components: {
-    Description,
-    Skillsets,
-    Portfolio,
-    Blog,
-    Contact
-  }
+	props: {
+		type: String,
+		header: {
+			default: true,
+			type: Boolean
+		}
+	},
+	data() {
+		return {
+			visible: false
+		};
+	},
+	methods: {
+		toggleHeader(isVisible) {
+			this.visible = isVisible;
+		},
+		activeSection(isVisible) {
+			EventBus.$emit('setActiveSection', {
+				type: this.type,
+				isVisible
+			});
+		}
+	},
+	components: {
+		Description,
+		Skillsets,
+		Portfolio,
+		Blog,
+		Contact
+	}
 };
 </script>
 
@@ -123,7 +123,7 @@ section {
       width: 100%;
       height: 100%;
       background: white;
-      background-image: url(../../public/img/textures/brilliant.png);
+      background-image: url(/textures/brilliant.png);
 
       clip-path: polygon(
         $clip 0,

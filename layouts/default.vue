@@ -9,9 +9,9 @@
 import AppHeader from '@/components/Header.vue';
 
 export default {
-  components: {
-    AppHeader
-  }
+	components: {
+		AppHeader
+	}
 };
 </script>
 
@@ -30,7 +30,7 @@ export default {
 body {
   margin: 0;
   font-size: var(--font-size);
-  background-image: url(../public/img/textures/asfalt-dark.png);
+  background-image: url(/textures/asfalt-dark.png);
 }
 
 #app {

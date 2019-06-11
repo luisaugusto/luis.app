@@ -32,9 +32,9 @@
         </div>
         <div class="page-title" :style="{ height: angle + 20 + '%' }">
           <h1>Luis Augusto</h1>
-          <span
-            ><span class="spacer">_</span>{{ currentSubtitle.text
-            }}<span :class="{ flashingCursor }">_</span></span
+          <div
+            ><span class="spacer">_</span><span>{{ currentSubtitle.text
+            }}</span><span :class="{ flashingCursor }">_</span></div
           >
         </div>
       </div>
@@ -57,111 +57,117 @@
 </template>
 
 <script>
-import { entries, EventBus } from '../main.js';
+import {EventBus} from '~/plugins/bus.js';
+
+import {createClient} from '~/plugins/contentful.js';
+const client = createClient();
 
 export default {
-  data() {
-    return {
-      angle: 0,
-      titles: [],
-      firstTitleLoaded: false,
-      currentSubtitle: {
-        index: undefined,
-        text: ''
-      },
-      flashingCursor: true,
-      activeSections: [],
-      sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
-    };
-  },
-  watch: {
-    firstTitleLoaded() {
-      this.currentSubtitle.index = 0;
-      this.typeSubtitles(this.titles[0].title);
-    }
-  },
-  methods: {
-    adjustAngle() {
-      const headerHeight = this.$refs.header.clientHeight;
-      this.angle =
+	data() {
+		return {
+			angle: 0,
+			titles: [],
+			firstTitleLoaded: false,
+			currentSubtitle: {
+				index: undefined,
+				text: ''
+			},
+			flashingCursor: true,
+			activeSections: [],
+			sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
+		};
+	},
+	watch: {
+		firstTitleLoaded() {
+			this.currentSubtitle.index = 0;
+			this.typeSubtitles(this.titles[0].title);
+		}
+	},
+	methods: {
+		adjustAngle() {
+			const headerHeight = this.$refs.header.clientHeight;
+			this.angle =
         Math.floor(
-          Math.min(50 + window.scrollY / (headerHeight / 50), 100) * 100
+        	Math.min(50 + window.scrollY / (headerHeight / 50), 100) * 100
         ) / 100;
-    },
-    typeSubtitles(str, cur = 0, del = false) {
-      //Checks if the word is finished being deleted while in delete mode
-      if (cur === -1 && del) {
-        //Get the index of the current string
-        let strIndex = this.titles.indexOf(
-          this.titles.find(({ title }) => title == str)
-        );
+		},
+		typeSubtitles(str, cur = 0, del = false) {
+			//Checks if the word is finished being deleted while in delete mode
+			if (cur === -1 && del) {
+				//Get the index of the current string
+				let strIndex = this.titles.indexOf(
+					this.titles.find(({ title }) => title == str)
+				);
 
-        //Check if the current string is the last item in the array
-        //If so, loop back to beginning of array. Otherwise use next item in array
-        if (++strIndex == this.titles.length) strIndex = 0;
-        this.currentSubtitle.index = strIndex;
-        this.typeSubtitles(this.titles[strIndex].title);
-        return;
-      }
+				//Check if the current string is the last item in the array
+				//If so, loop back to beginning of array. Otherwise use next item in array
+				if (++strIndex == this.titles.length) strIndex = 0;
+				this.currentSubtitle.index = strIndex;
+				this.typeSubtitles(this.titles[strIndex].title);
+				return;
+			}
 
-      const vm = this;
-      //Checks if the word is finished being written out,
-      //then waits 5 seconds before deleting it and typing a new word
-      if (cur == str.length) {
-        this.flashingCursor = true;
+			const vm = this;
+			//Checks if the word is finished being written out,
+			//then waits 5 seconds before deleting it and typing a new word
+			if (cur == str.length) {
+				this.flashingCursor = true;
 
-        setTimeout(function() {
-          vm.typeSubtitles(str, --cur, true);
-        }, 5000);
-      } else {
-        this.flashingCursor = false;
+				setTimeout(function() {
+					vm.typeSubtitles(str, --cur, true);
+				}, 5000);
+			} else {
+				this.flashingCursor = false;
 
-        if (del) this.currentSubtitle.text = str.substring(0, cur);
-        else this.currentSubtitle.text += str[cur];
+				if (del) this.currentSubtitle.text = str.substring(0, cur);
+				else this.currentSubtitle.text += str[cur];
 
-        setTimeout(function() {
-          if (del) vm.typeSubtitles(str, --cur, true);
-          else vm.typeSubtitles(str, ++cur);
-        }, 50);
-      }
-    }
-  },
-  beforeMount() {
-    entries('subheaders', 'fields.order').then(({ items }) => {
-      this.titles = items.map(({ fields }) => {
-        return {
-          title: fields.title,
-          background: fields.image.fields.file.url,
-          fallback: fields.imageFallback.fields.file.url
-        };
-      });
-    });
-  },
-  mounted() {
-    this.adjustAngle();
-    document.addEventListener('scroll', this.adjustAngle);
+				setTimeout(function() {
+					if (del) vm.typeSubtitles(str, --cur, true);
+					else vm.typeSubtitles(str, ++cur);
+				}, 50);
+			}
+		}
+	},
+	beforeMount() {
+		client.getEntries({
+			'content_type': 'subheaders',
+			order: 'fields.order'
+		}).then(({ items }) => {
+			this.titles = items.map(({ fields }) => {
+				return {
+					title: fields.title,
+					background: fields.image.fields.file.url,
+					fallback: fields.imageFallback.fields.file.url
+				};
+			});
+		});
+	},
+	mounted() {
+		this.adjustAngle();
+		document.addEventListener('scroll', this.adjustAngle);
 
-    EventBus.$on('setActiveSection', section => {
-      if (section.type == 'Description') return;
+		EventBus.$on('setActiveSection', section => {
+			if (section.type == 'Description') return;
 
-      if (section.isVisible && this.activeSections.indexOf(section.type) < 0) {
-        this.activeSections.unshift(section.type);
-      }
+			if (section.isVisible && this.activeSections.indexOf(section.type) < 0) {
+				this.activeSections.unshift(section.type);
+			}
 
-      if (
-        !section.isVisible &&
+			if (
+				!section.isVisible &&
         this.activeSections.indexOf(section.type) >= 0
-      ) {
-        this.activeSections = this.activeSections.filter(
-          item => item != section.type
-        );
-      }
-    });
-  },
-  destroyed() {
-    document.removeEventListener('scroll', this.adjustAngle);
-    EventBus.$off('setActiveSection');
-  }
+			) {
+				this.activeSections = this.activeSections.filter(
+					item => item != section.type
+				);
+			}
+		});
+	},
+	destroyed() {
+		document.removeEventListener('scroll', this.adjustAngle);
+		EventBus.$off('setActiveSection');
+	}
 };
 </script>
 
@@ -220,7 +226,7 @@ header {
         margin: 0;
         font-size: 4em;
 
-        + span {
+        + div {
           font-family: 'Major Mono Display';
           font-size: 2.5em;
 
@@ -236,7 +242,7 @@ header {
         @media (max-width: 500px) {
           font-size: 13vw;
 
-          + span {
+          + div {
             font-size: 7vw;
           }
         }

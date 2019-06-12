@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view class="page" />
+    <nuxt class="page"/>
   </div>
 </template>
 

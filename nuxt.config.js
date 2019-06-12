@@ -1,3 +1,4 @@
+console.log(process.env);
 export default {
 	mode: 'universal',
 	/*
@@ -12,10 +13,16 @@ export default {
 				hid: 'description',
 				name: 'description',
 				content: process.env.npm_package_description || ''
+			},
+			{
+				hid: 'og:image',
+				property: 'og:image',
+				content: 'https://luis.codes/photos/banner.jpg'
 			}
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{ rel: 'canonical', href: 'https://luis.codes' },
 			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Major+Mono+Display|Montserrat:400,700' }
 		]
 	},

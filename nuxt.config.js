@@ -1,3 +1,4 @@
+console.log(process.env);
 export default {
 	mode: 'universal',
 	/*
@@ -16,7 +17,7 @@ export default {
 			{
 				hid: 'og:image',
 				property: 'og:image',
-				content: '/photos/banner.jpg'
+				content: 'https://luis.codes/photos/banner.jpg'
 			}
 		],
 		link: [

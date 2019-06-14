@@ -1,32 +1,25 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-      "plugin:nuxt/recommended"
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/essential"
+  ],
+  "rules": {
+    "semi": [
+      1,
+      "always"
     ],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+    "quotes": [
+      1,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  }
 };

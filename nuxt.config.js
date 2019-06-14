@@ -1,9 +1,5 @@
-console.log(process.env);
 export default {
 	mode: 'universal',
-	/*
-   ** Headers of the page
-   */
 	head: {
 		title: 'Luis Augusto',
 		meta: [
@@ -23,32 +19,20 @@ export default {
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
 			{ rel: 'canonical', href: 'https://luis.codes' },
-			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Major+Mono+Display|Montserrat:400,700' }
+			{
+				rel: 'stylesheet',
+				href:
+          'https://fonts.googleapis.com/css?family=Major+Mono+Display|Montserrat:400,700'
+			}
 		]
 	},
 	env: {
 		CTF_SPACE_ID: process.env.CTF_SPACE_ID,
 		CTF_ACCESS_TOKEN: process.env.CTF_ACCESS_TOKEN
 	},
-	/*
-   ** Customize the progress-bar color
-   */
 	loading: { color: '#fff' },
-	/*
-   ** Global CSS
-   */
-	css: [],
-	/*
-   ** Plugins to load before mounting the App
-   */
-	plugins: [
-		'~/plugins/font-awesome',
-		'~/plugins/observe-visibility',
-		'~/plugins/scroll-to'
-	],
-	/*
-   ** Nuxt.js modules
-   */
+	css: ['@/assets/global.scss'],
+	plugins: ['~/plugins/font-awesome', '~/plugins/observe-visibility'],
 	modules: [
 		// Doc: https://axios.nuxtjs.org/usag
 		'@nuxtjs/axios',
@@ -56,18 +40,8 @@ export default {
 		'@nuxtjs/eslint-module',
 		'@nuxtjs/dotenv'
 	],
-	/*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
 	axios: {},
-	/*
-   ** Build configuration
-   */
 	build: {
-		/*
-     ** You can extend webpack config here
-     */
 		extend(config, ctx) {}
 	}
 };

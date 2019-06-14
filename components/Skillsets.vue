@@ -1,6 +1,9 @@
 <template>
-  <div class="col-3" v-if="skillsets.length > 0">
-    <article class="skillset" v-for="skillset in skillsets" :key="skillset.id">
+  <div v-if="skillsets.length > 0" class="col-3" v-observe-visibility="{
+        callback: displaySkills,
+        once: true
+      }">
+    <article v-for="skillset in skillsets" class="skillset" :key="skillset.id" >
       <h3>{{ skillset.title }}<font-awesome-icon :icon="skillset.icon" /></h3>
       <div>
         <div
@@ -19,54 +22,74 @@
         </div>
       </div>
     </article>
-    <article class="dev-workflow">
-      <h3>Development Workflow <font-awesome-icon icon="layer-group" /></h3>
-      <div v-html="workflow"></div>
-    </article>
+    <div class="align-right">
+      <button>
+        <nuxtLink to="/portfolio">
+          View Portfolio
+        </nuxtLink>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import {createClient} from '~/plugins/contentful.js';
+import { createClient } from '~/plugins/contentful.js';
 const client = createClient();
-
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 export default {
 	data() {
 		return {
-			skillsets: [],
-			workflow: ''
+			skillsets: []
 		};
-	},
+  },
+  methods: {
+    displaySkills(isVisible, entry) {
+      if (isVisible) {
+        setTimeout(function() {
+          entry.target.className += ' display';
+        }, 300);
+      }
+    }
+  },
 	beforeMount() {
-		client.getEntries({
-			'content_type': 'skillsets',
-			order: 'fields.order'
-		}).then(({ items }) => {
-			this.skillsets = items.map(({ fields, sys }) => {
-				return { ...fields, ...sys };
+		client
+			.getEntries({
+				content_type: 'skillsets',
+				order: 'fields.order'
+			})
+			.then(({ items }) => {
+				this.skillsets = items.map(({ fields, sys }) => {
+					return { ...fields, ...sys };
+				});
 			});
-		});
-
-		client.getEntries({
-			'content_type': 'siteSettings'
-		}).then(({ items }) => {
-			this.workflow = documentToHtmlString(items[0].fields.developmentWorkflow);
-		});
 	}
 };
 </script>
 
 <style lang="scss" scoped>
-.dev-workflow {
-  grid-column: 1/-1;
+div.col-3 {
+  &, article {
+    opacity: 0;
+    transition: all 0.5s;
+  }
 
-  h3 {
-    align-items: center;
+  article {
+    position: relative;
+    top: calc(var(--spacing) * 2);
+  }
 
-    svg {
-      margin-right: 15px;
+  @for $i from 1 through 3 {
+    article:nth-child(#{$i}) {
+      transition-delay: calc(#{$i} * .1s);
+    }
+  }
+
+  &.display {
+    opacity: 1;
+
+    article {
+      opacity: 1;
+      top: 0;
     }
   }
 }

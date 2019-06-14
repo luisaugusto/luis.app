@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <app-section type="Portfolio" />
+    <app-section type="Portfolio" :header="false"/>
   </div>
 </template>
 

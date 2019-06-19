@@ -1,9 +1,9 @@
 <template>
-  <div v-if="skillsets.length > 0" class="col-3" v-observe-visibility="{
-        callback: displaySkills,
+  <div v-if="skillsets.length > 0" class="col-3" >
+    <article v-for="skillset in skillsets" class="skillset" :key="skillset.id" v-observe-visibility="{
+        callback: displaySkill,
         once: true
       }">
-    <article v-for="skillset in skillsets" class="skillset" :key="skillset.id" >
       <h3>{{ skillset.title }}<font-awesome-icon :icon="skillset.icon" /></h3>
       <div>
         <div
@@ -43,11 +43,11 @@ export default {
 		};
   },
   methods: {
-    displaySkills(isVisible, entry) {
+    displaySkill(isVisible, entry) {
       if (isVisible) {
         setTimeout(function() {
-          entry.target.className += ' display';
-        }, 300);
+          entry.target.setAttribute('display', true);
+        }, 200);
       }
     }
   },
@@ -65,32 +65,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="scss" scoped>
-div.col-3 {
-  &, article {
-    opacity: 0;
-    transition: all 0.5s;
-  }
-
-  article {
-    position: relative;
-    top: calc(var(--spacing) * 2);
-  }
-
-  @for $i from 1 through 3 {
-    article:nth-child(#{$i}) {
-      transition-delay: calc(#{$i} * .1s);
-    }
-  }
-
-  &.display {
-    opacity: 1;
-
-    article {
-      opacity: 1;
-      top: 0;
-    }
-  }
-}
-</style>

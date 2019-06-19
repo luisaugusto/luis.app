@@ -22,7 +22,7 @@
       </article>
     </a>
 
-    <div v-if="count === 3" class="align-right">
+    <div v-if="latestPostsOnly" class="align-right">
       <button>
         <nuxtLink to="/blog">
           Read More
@@ -35,10 +35,7 @@
 <script>
 export default {
 	props: {
-		count: {
-			default: 3,
-			type: Number
-		}
+		latestPostsOnly: Boolean
 	},
 	data() {
 		return {
@@ -106,7 +103,7 @@ export default {
 				//   acc[(index * 2) + 1] = i;
 				//   return acc;
 				// }, [])
-					.slice(0, this.count);
+					.slice(0, this.latestPostsOnly ? 3 : 10);
 			});
 	}
 };
@@ -150,6 +147,7 @@ export default {
       grid-row: 2/4;
       grid-column: 2/5;
       left: var(--spacing);
+      top: 0;
 
       .info {
         justify-content: flex-start;

@@ -13,7 +13,7 @@
       <span>{{ customHeader || type }}</span>
     </h2>
 
-    <component :is="type" />
+    <component :is="type" :latest-posts-only="latestPostsOnly"/>
   </section>
 </template>
 
@@ -33,7 +33,8 @@ export default {
 		Contact
 	},
 	props: {
-		customHeader: String,
+    customHeader: String,
+    latestPostsOnly: Boolean,
 		type: String,
 		header: {
 			default: true,

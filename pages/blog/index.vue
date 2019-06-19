@@ -8,6 +8,9 @@
 import AppSection from '~/components/AppSection.vue';
 
 export default {
+  head: {
+    titleTemplate: 'Blog :: %s'
+  },
 	components: {
 		AppSection
 	}

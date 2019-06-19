@@ -1,10 +1,16 @@
 <template>
   <div v-if="portfolio.length > 0" class="col-3" >
-    <article class="dev-workflow">
+    <article class="dev-workflow" v-observe-visibility="{
+        callback: displaySection,
+        once: true
+      }">
       <h3>Development Workflow <font-awesome-icon icon="layer-group" /></h3>
       <div v-html="workflow" />
     </article>
-    <article v-for="site in portfolio" class="portfolio-item" :key="site.id" >
+    <article v-for="site in portfolio" class="portfolio-item" :key="site.id" v-observe-visibility="{
+        callback: displaySection,
+        once: true
+      }">
       <h3>
         <picture>
           <source
@@ -61,7 +67,17 @@ export default {
       portfolio: [],
       workflow: '',
 		};
-	},
+  },
+  methods: {
+    displaySection(isVisible, entry) {
+      console.log(entry);
+      if (isVisible) {
+        setTimeout(function() {
+          entry.target.setAttribute('display', true);
+        }, 200);
+      }
+    }
+  },
 	beforeMount() {
 		client
 			.getEntries({

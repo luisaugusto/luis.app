@@ -1,87 +1,123 @@
 <template>
-  <div>
-    <header ref="header">
-      <div
-        :style="{
-          clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`,
-          '-webkit-clip-path': `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`
-        }"
-      >
-        <div class="backgrounds">
-          <picture
-            v-for="(img, i) in titles"
-            :key="img.title"
-            :class="{ active: currentSubtitle.index == i }"
+  <header ref="header">
+    <div
+      :style="{
+        clipPath: `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`,
+        '-webkit-clip-path': `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`
+      }"
+    >
+      <div class="backgrounds">
+        <picture
+          v-for="(img, i) in titles"
+          :key="img.title"
+          :class="{ active: currentSubtitle.index == i }"
+        >
+          <source
+            :srcset="img.background"
+            type="image/webp"
+            @load="firstTitleLoaded = true"
           >
-            <source
-              :srcset="img.background"
-              type="image/webp"
-              @load="firstTitleLoaded = true"
-            />
-            <source
-              :srcset="img.fallback"
-              type="image/jpeg"
-              @load="firstTitleLoaded = true"
-            />
-            <img
-              :src="img.fallback"
-              :alt="img.title"
-              @load="firstTitleLoaded = true"
-            />
-          </picture>
-        </div>
-        <div class="page-title" :style="{ height: angle + 20 + '%' }">
-          <h1>Luis Augusto</h1>
-          <div
-            ><span class="spacer">_</span><span>{{ currentSubtitle.text
-            }}</span><span :class="{ flashingCursor }">_</span></div
+          <source
+            :srcset="img.fallback"
+            type="image/jpeg"
+            @load="firstTitleLoaded = true"
           >
+          <img
+            :src="img.fallback"
+            :alt="img.title"
+            @load="firstTitleLoaded = true"
+          >
+        </picture>
+      </div>
+      <div class="page-title" :style="{ height: angle + 20 + '%' }">
+        <h1>Luis Augusto</h1>
+        <div>
+          <span class="spacer">_</span>
+          <span>{{ currentSubtitle.text }}</span>
+          <span :class="{ flashingCursor }">_</span>
         </div>
       </div>
-    </header>
+    </div>
     <nav>
       <ul>
-        <li v-for="(section, i) in sections" :key="section + i">
-          <a
-            href="#"
-            v-scroll-to="'#' + section"
-            :class="{
-              active: activeSections[0] == section
-            }"
-            >{{ section }}</a
-          >
+        <li>
+          <nuxtLink to="/">
+            Home
+          </nuxtLink>
+        </li>
+        <li>
+          <nuxtLink to="/portfolio">
+            Portfolio
+          </nuxtLink>
+        </li>
+        <li>
+          <nuxtLink to="/blog">
+            Blog
+          </nuxtLink>
+        </li>
+        <li>
+          <nuxtLink to="/contact">
+            Contact
+          </nuxtLink>
         </li>
       </ul>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>
-import {EventBus} from '~/plugins/bus.js';
-
-import {createClient} from '~/plugins/contentful.js';
+import { createClient } from '~/plugins/contentful.js';
 const client = createClient();
 
 export default {
 	data() {
 		return {
-			angle: 0,
+			angle: 50,
 			titles: [],
-			firstTitleLoaded: false,
+      firstTitleLoaded: false,
+      path: '',
+      pathTitle: '',
 			currentSubtitle: {
 				index: undefined,
 				text: ''
 			},
 			flashingCursor: true,
-			activeSections: [],
 			sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
 		};
-	},
+  },
 	watch: {
 		firstTitleLoaded() {
 			this.currentSubtitle.index = 0;
 			this.typeSubtitles(this.titles[0].title);
 		}
+	},
+	beforeMount() {
+    this.path = $nuxt.$route.path;
+    this.pathTitle = $nuxt.$route.name;
+    const limit = this.path === '/' ? 10 : 1;
+
+		client
+			.getEntries({
+				content_type: 'subheaders',
+        order: 'fields.order',
+        limit
+			})
+			.then(({ items }) => {
+				this.titles = items.map(({ fields }) => {
+					return {
+						title: this.path === '/' ? fields.title : this.pathTitle,
+						background: fields.image.fields.file.url,
+						fallback: fields.imageFallback.fields.file.url
+					};
+				});
+      });
+	},
+	mounted() {
+		this.adjustAngle();
+    document.addEventListener('scroll', this.adjustAngle);
+	},
+	destroyed() {
+		document.removeEventListener('scroll', this.adjustAngle);
 	},
 	methods: {
 		adjustAngle() {
@@ -113,6 +149,8 @@ export default {
 			if (cur == str.length) {
 				this.flashingCursor = true;
 
+        if (this.path !== '/') return;
+
 				setTimeout(function() {
 					vm.typeSubtitles(str, --cur, true);
 				}, 5000);
@@ -128,52 +166,12 @@ export default {
 				}, 50);
 			}
 		}
-	},
-	beforeMount() {
-		client.getEntries({
-			'content_type': 'subheaders',
-			order: 'fields.order'
-		}).then(({ items }) => {
-			this.titles = items.map(({ fields }) => {
-				return {
-					title: fields.title,
-					background: fields.image.fields.file.url,
-					fallback: fields.imageFallback.fields.file.url
-				};
-			});
-		});
-	},
-	mounted() {
-		this.adjustAngle();
-		document.addEventListener('scroll', this.adjustAngle);
-
-		EventBus.$on('setActiveSection', section => {
-			if (section.type == 'Description') return;
-
-			if (section.isVisible && this.activeSections.indexOf(section.type) < 0) {
-				this.activeSections.unshift(section.type);
-			}
-
-			if (
-				!section.isVisible &&
-        this.activeSections.indexOf(section.type) >= 0
-			) {
-				this.activeSections = this.activeSections.filter(
-					item => item != section.type
-				);
-			}
-		});
-	},
-	destroyed() {
-		document.removeEventListener('scroll', this.adjustAngle);
-		EventBus.$off('setActiveSection');
 	}
 };
 </script>
 
 <style lang="scss" scoped>
 header {
-  z-index: 2;
   filter: drop-shadow(0px 5px 0px var(--accent-color));
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -191,7 +189,7 @@ header {
       background-color: #999;
 
       &,
-      picture {
+      img {
         position: absolute;
         top: 0;
         width: 100%;
@@ -199,17 +197,24 @@ header {
       }
 
       picture {
-        object-fit: cover;
-        left: 50%;
         opacity: 0;
-        transform: translateX(-50%);
-        transform-origin: center;
-        transition: opacity 0.5s, transform 0s 0.5s;
+        transition: opacity 0.5s;
+
+        img {
+          object-fit: cover;
+          left: 50%;
+          transform: translateX(-50%);
+          transform-origin: center;
+          transition: transform 0s 0.5s;
+        }
 
         &.active {
           opacity: 1;
-          transform: scale(1.025) translateX(-50%);
-          transition: opacity 0.5s, transform 15s;
+
+          img {
+            transform: scale(1.025) translateX(-50%);
+            transition: transform 15s;
+          }
         }
       }
     }
@@ -227,8 +232,9 @@ header {
         font-size: 4em;
 
         + div {
-          font-family: 'Major Mono Display';
+          font-family: "Major Mono Display";
           font-size: 2.5em;
+          display: flex;
 
           .spacer {
             opacity: 0;
@@ -252,44 +258,34 @@ header {
 }
 
 nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
-  width: 100%;
   display: flex;
   justify-content: flex-end;
-  border-bottom: 3px solid var(--accent-color);
-  background: rgba(#fff, 0.6);
 
   ul {
     margin: 0;
-    padding: 15px;
+    padding: var(--spacing);
     list-style: none;
-    display: flex;
-
-    @media (max-width: 650px) {
-      justify-content: space-between;
-      width: 100vw;
-      box-sizing: border-box;
-    }
+    display: grid;
+    grid-gap: var(--spacing);
+    grid-auto-flow: column;
 
     li {
       margin-bottom: 0;
 
       a {
         display: block;
-        border-top: 1px solid #333;
+        border-top: 1px solid white;
         border-bottom: none;
         padding: 10px 10px 0 10px;
-        margin: 0 15px;
         transition: all 0.1s ease-out;
         position: relative;
         opacity: 1;
-
-        @media (max-width: 650px) {
-          margin: 0;
-        }
+        font-weight: normal;
+        color: white;
+        text-decoration: none;
 
         &:hover,
         &.active {
@@ -298,13 +294,6 @@ nav {
         }
       }
     }
-  }
-}
-
-@supports (-webkit-backdrop-filter: blur(1px)) OR (backdrop-filter: blur(1px)) {
-  nav {
-    backdrop-filter: blur(5px);
-    background: rgba(#fff, 0.2);
   }
 }
 

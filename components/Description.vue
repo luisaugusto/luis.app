@@ -12,7 +12,11 @@
           type="image/jpeg"
           @load="imgLoaded = true"
         />
-        <img src="/photos/headshot.jpg" @load="imgLoaded = true" alt="Luis Augusto" />
+        <img
+          src="/photos/headshot.jpg"
+          alt="Luis Augusto"
+          @load="imgLoaded = true"
+        />
       </picture>
     </div>
     <p>
@@ -104,7 +108,7 @@ export default {
       }
 
       &:before {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         bottom: 0;

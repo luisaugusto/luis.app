@@ -26,12 +26,12 @@
           >Name</span
         >
         <input
+          v-model="labelStates.name.text"
           type="text"
           name="name"
           required
           @focus="labelStates.name.active = true"
           @blur="labelStates.name.active = false"
-          v-model="labelStates.name.text"
         />
       </label>
       <label>
@@ -46,12 +46,12 @@
           >Email</span
         >
         <input
+          v-model="labelStates.email.text"
           type="email"
           name="email"
           required
           @focus="labelStates.email.active = true"
           @blur="labelStates.email.active = false"
-          v-model="labelStates.email.text"
         />
       </label>
       <label class="subject">
@@ -67,12 +67,12 @@
           >Subject</span
         >
         <input
+          v-model="labelStates.subject.text"
           type="text"
           name="subject"
           required
           @focus="labelStates.subject.active = true"
           @blur="labelStates.subject.active = false"
-          v-model="labelStates.subject.text"
         />
       </label>
       <label class="textarea">
@@ -88,22 +88,22 @@
           >Message</span
         >
         <textarea
-          name="message"
           ref="message"
+          v-model="labelStates.message.text"
+          name="message"
           rows="1"
           required
           @keydown="resizeTextarea"
           @keyup="resizeTextarea"
           @focus="labelStates.message.active = true"
           @blur="labelStates.message.active = false"
-          v-model="labelStates.message.text"
-        ></textarea>
+        />
       </label>
       <div>
-        <div class="success" v-if="status == 'success'">
+        <div v-if="status == 'success'" class="success" >
           Thanks for your message!
         </div>
-        <div class="error" v-if="status == 'error'">
+        <div v-if="status == 'error'" class="error" >
           There was an error sending your message. Please try again or send me
           an email at <a href="mailto:hello@luis.codes">hello@luis.codes</a>.
         </div>
@@ -271,7 +271,7 @@ form {
       background: none;
       resize: none;
       padding: 0;
-      font-family: 'Montserrat';
+      font-family: "Montserrat";
     }
 
     textarea {
@@ -291,30 +291,6 @@ form {
 
     .error {
       color: red;
-    }
-
-    button {
-      font-size: 1.4em;
-      border: none;
-      background: var(--accent-color);
-      box-shadow: none;
-      color: white;
-      padding: calc(var(--spacing) / 2);
-      transition: all 0.3s;
-      cursor: pointer;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      border-radius: 3px;
-      flex-shrink: 0;
-
-      &.sending {
-        pointer-events: none;
-      }
-
-      &:hover {
-        opacity: 0.8;
-      }
     }
   }
 }

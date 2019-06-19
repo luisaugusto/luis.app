@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <app-section type="Portfolio" :header="false"/>
+  <div class="contact">
+    <app-section type="Contact" :header="false"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import AppSection from '~/components/AppSection.vue';
 
 export default {
   head: {
-    titleTemplate: 'Portfolio :: %s'
+    titleTemplate: 'Contact :: %s'
   },
 	components: {
 		AppSection

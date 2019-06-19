@@ -56,7 +56,9 @@
           </nuxtLink>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <nuxtLink to="/contact">
+            Contact
+          </nuxtLink>
         </li>
       </ul>
     </nav>

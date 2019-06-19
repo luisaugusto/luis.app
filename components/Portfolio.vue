@@ -56,9 +56,6 @@ const client = createClient();
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 export default {
-  head: {
-    titleTemplate: 'Portfolio :: %s'
-  },
 	data() {
 		return {
       portfolio: [],

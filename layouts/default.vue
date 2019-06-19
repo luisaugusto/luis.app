@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-header />
+    <app-header :key="$nuxt.$route.path"/>
     <nuxt class="page" />
   </div>
 </template>

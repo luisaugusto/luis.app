@@ -72,7 +72,9 @@ export default {
 		return {
 			angle: 50,
 			titles: [],
-			firstTitleLoaded: false,
+      firstTitleLoaded: false,
+      path: '',
+      pathTitle: '',
 			currentSubtitle: {
 				index: undefined,
 				text: ''
@@ -80,7 +82,7 @@ export default {
 			flashingCursor: true,
 			sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
 		};
-	},
+  },
 	watch: {
 		firstTitleLoaded() {
 			this.currentSubtitle.index = 0;
@@ -88,24 +90,29 @@ export default {
 		}
 	},
 	beforeMount() {
+    this.path = $nuxt.$route.path;
+    this.pathTitle = $nuxt.$route.name;
+    const limit = this.path === '/' ? 10 : 1;
+
 		client
 			.getEntries({
 				content_type: 'subheaders',
-				order: 'fields.order'
+        order: 'fields.order',
+        limit
 			})
 			.then(({ items }) => {
 				this.titles = items.map(({ fields }) => {
 					return {
-						title: fields.title,
+						title: this.path === '/' ? fields.title : this.pathTitle,
 						background: fields.image.fields.file.url,
 						fallback: fields.imageFallback.fields.file.url
 					};
 				});
-			});
+      });
 	},
 	mounted() {
 		this.adjustAngle();
-		document.addEventListener('scroll', this.adjustAngle);
+    document.addEventListener('scroll', this.adjustAngle);
 	},
 	destroyed() {
 		document.removeEventListener('scroll', this.adjustAngle);
@@ -139,6 +146,8 @@ export default {
 			//then waits 5 seconds before deleting it and typing a new word
 			if (cur == str.length) {
 				this.flashingCursor = true;
+
+        if (this.path !== '/') return;
 
 				setTimeout(function() {
 					vm.typeSubtitles(str, --cur, true);

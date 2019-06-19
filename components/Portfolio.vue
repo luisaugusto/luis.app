@@ -56,6 +56,9 @@ const client = createClient();
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 export default {
+  head: {
+    titleTemplate: 'Portfolio :: %s'
+  },
 	data() {
 		return {
       portfolio: [],
@@ -103,6 +106,8 @@ export default {
 article.portfolio-item {
   display: flex;
   flex-direction: column;
+  max-width: 500px;
+  justify-self: center;
 
   h3 {
     min-height: 200px;

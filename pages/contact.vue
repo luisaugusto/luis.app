@@ -9,7 +9,14 @@ import AppSection from '~/components/AppSection.vue';
 
 export default {
   head: {
-    titleTemplate: 'Contact :: %s'
+    titleTemplate: 'Contact :: %s',
+    meta: [
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Contact :: Luis Augusto'
+      }
+    ]
   },
 	components: {
 		AppSection

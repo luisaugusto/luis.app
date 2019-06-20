@@ -2,27 +2,39 @@
   <div v-if="blogs.length > 0" class="col-3 blog-posts" >
     <a
       v-for="post in blogs"
-      :key="post.guid"
+      :key="post.id"
       v-observe-visibility="{
         callback: displayPost,
         once: true
       }"
-      :href="post.link"
-      rel="noreferrer"
+      :href="'/blog/' + post.slug"
     >
-      <img :src="post.thumbnail" :alt="post.title" />
+      <picture>
+        <source
+          :srcset="post.featuredImage.fields.file.url"
+          type="image/webp"
+        >
+        <source
+          :srcset="post.featuredImageJPG.fields.file.url"
+          type="image/jpeg"
+        >
+        <img
+          :src="post.featuredImageJPG.fields.file.url"
+          :alt="post.title"
+        >
+      </picture>
       <article class="blog-item">
         <div class="info">
           <h4>{{ post.title }}</h4>
           <p>
-            <em>{{ post.date }}</em>
+            <em>{{ post.postDate }}</em>
           </p>
           <p>{{ post.description }}</p>
         </div>
       </article>
     </a>
 
-    <div v-if="latestPostsOnly" class="align-right">
+    <div class="align-right" v-if="path === '/'">
       <button>
         <nuxtLink to="/blog">
           Read More
@@ -33,53 +45,16 @@
 </template>
 
 <script>
+import { createClient } from '~/plugins/contentful.js';
+const client = createClient();
+
 export default {
-	props: {
-		latestPostsOnly: Boolean
-	},
 	data() {
 		return {
-			blogs: []
+      blogs: [],
+      path: '',
 		};
 	},
-	watch: {
-		blogs() {
-			this.blogs.forEach(post => {
-				const desc = post.description;
-				const openP = desc.indexOf('<p>');
-				const closeP = desc.indexOf('</p>');
-				const firstP = desc.substring(openP, closeP);
-
-				const el = document.createElement('div');
-				el.innerHTML = firstP;
-				const text = el.innerText;
-				const firstSentence = text.substring(0, text.indexOf('.') + 1);
-
-				post.description = firstSentence;
-
-				const date = new Date(post.pubDate);
-				const day = date.getDate();
-				const month = date.getMonth();
-				const months = [
-					'Jan',
-					'Feb',
-					'Mar',
-					'Apr',
-					'May',
-					'Jun',
-					'Jul',
-					'Aug',
-					'Sep',
-					'Oct',
-					'Nov',
-					'Dec'
-				];
-				post.date = `${months[month]}  ${
-					day < 10 ? 0 : ''
-				}${day}, ${date.getFullYear()}`;
-			});
-		}
-  },
   methods: {
     displayPost(isVisible, entry) {
       if (isVisible) {
@@ -90,21 +65,20 @@ export default {
     }
   },
 	beforeMount() {
-		fetch(
-			'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@legendofluis'
-		)
-			.then(res => res.json())
-			.then(data => {
-				this.blogs = data.items
-					.filter(post => post.thumbnail.indexOf('images') > -1)
-					.slice(0, 6)
-				// .reduce((acc, i, index) => {
-				//   acc[index * 2] = i;
-				//   acc[(index * 2) + 1] = i;
-				//   return acc;
-				// }, [])
-					.slice(0, this.latestPostsOnly ? 3 : 10);
-			});
+    this.path = $nuxt.$route.path;
+    const limit = this.path === '/' ? 3 : 10;
+
+    client
+			.getEntries({
+				content_type: 'blogPost',
+        order: 'fields.postDate',
+        limit
+			})
+			.then(({ items }) => {
+        this.blogs = items.map(({ fields, sys }) => {
+					return { ...fields, ...sys };
+				});
+      });
 	}
 };
 </script>
@@ -129,18 +103,22 @@ export default {
       grid-column: 1/-1;
     }
 
-    img, article {
+    picture, article {
       position: relative;
       transition: all 0.5s;
       opacity: 0;
     }
 
-    img {
+    picture {
       width: 100%;
       grid-row: 1/3;
       grid-column: 1/4;
       left: calc(var(--spacing) * -1);
-      box-shadow: 0px 10px 10px -9px rgba(0, 0, 0, 0.75);
+
+      img {
+        width: 100%;
+        box-shadow: 0px 10px 10px -9px rgba(0, 0, 0, 0.75);
+      }
     }
 
     article {
@@ -157,13 +135,13 @@ export default {
     &.display {
       opacity: 1;
 
-      img, article {
+      picture, article {
         left: 0;
         opacity: 1;
       }
 
       &:hover {
-        img {
+        picture {
           left: calc(var(--spacing) / 2);
           filter: grayscale(1);
         }

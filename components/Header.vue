@@ -29,7 +29,7 @@
           >
         </picture>
       </div>
-      <div class="page-title" :style="{ height: angle + 20 + '%' }">
+      <div class="page-title" :style="{ height: angle + 20 + '%' }" >
         <h1>Luis Augusto</h1>
         <div>
           <span class="spacer">_</span>
@@ -40,24 +40,9 @@
     </div>
     <nav>
       <ul>
-        <li>
-          <nuxtLink to="/">
-            Home
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/portfolio">
-            Portfolio
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/blog">
-            Blog
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/contact">
-            Contact
+        <li v-for="page in nav" :key="page.name">
+          <nuxtLink :to="page.path">
+            {{ page.name }}
           </nuxtLink>
         </li>
       </ul>
@@ -82,8 +67,30 @@ export default {
 				text: ''
 			},
 			flashingCursor: true,
-			sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
+			nav: [
+        {
+          name: 'Home',
+          path: '/'
+        },
+        {
+          name: 'Portfolio',
+          path: '/portfolio'
+        },
+        {
+          name: 'Blog',
+          path: '/blog'
+        },
+        {
+          name: 'Contact',
+          path: '/contact'
+        }
+      ]
 		};
+  },
+  computed: {
+    isHomePage() {
+      return this.path === '/';
+    }
   },
 	watch: {
 		firstTitleLoaded() {
@@ -94,7 +101,7 @@ export default {
 	beforeMount() {
     this.path = $nuxt.$route.path;
     this.pathTitle = $nuxt.$route.name;
-    const limit = this.path === '/' ? 10 : 1;
+    const limit = this.isHomePage ? 10 : 1;
 
 		client
 			.getEntries({
@@ -105,7 +112,7 @@ export default {
 			.then(({ items }) => {
 				this.titles = items.map(({ fields }) => {
 					return {
-						title: this.path === '/' ? fields.title : this.pathTitle,
+						title: this.isHomePage ? fields.title : this.pathTitle,
 						background: fields.image.fields.file.url,
 						fallback: fields.imageFallback.fields.file.url
 					};
@@ -149,7 +156,7 @@ export default {
 			if (cur == str.length) {
 				this.flashingCursor = true;
 
-        if (this.path !== '/') return;
+        if (!this.isHomePage) return;
 
 				setTimeout(function() {
 					vm.typeSubtitles(str, --cur, true);
@@ -288,7 +295,7 @@ nav {
         text-decoration: none;
 
         &:hover,
-        &.active {
+        &.nuxt-link-active:not([href="/"]) {
           border-top-width: 3px;
           padding-top: 8px;
         }

@@ -12,6 +12,9 @@
 
       <div v-html="markdown"></div>
     </section>
+    <section class="comments">
+      <vue-disqus shortname="luis-codes" :identifier="post.slug" :url="'https://luis.codes/blog/' + post.slug"></vue-disqus>
+    </section>
   </div>
 </template>
 <script>
@@ -85,9 +88,14 @@ export default {
 };
 </script>
 <style lang="scss">
-.page .post {
+.page .post,
+.page .comments {
   max-width: 800px;
   margin: calc(var(--spacing) * 2) auto;
+
+  &.comments {
+    padding-top: calc(var(--spacing) * 2);
+  }
 
   h2 {
     clip-path: none;
@@ -98,7 +106,7 @@ export default {
     font-weight: bold;
   }
 
-  iframe {
+  iframe[src*='codepen'] {
     margin: calc(var(--spacing)) 0;
   }
 

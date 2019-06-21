@@ -1,5 +1,5 @@
 require('dotenv').config();
-const contentful = require('contentful')
+const contentful = require('contentful');
 
 export default {
 	mode: 'universal',
@@ -35,7 +35,7 @@ export default {
 	},
 	loading: { color: '#fff' },
 	css: ['@/assets/global.scss'],
-	plugins: ['~/plugins/font-awesome', '~/plugins/observe-visibility'],
+	plugins: ['~/plugins/font-awesome', '~/plugins/observe-visibility', '~/plugins/disqus'],
 	modules: [
 		// Doc: https://axios.nuxtjs.org/usag
 		'@nuxtjs/axios',

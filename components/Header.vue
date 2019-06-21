@@ -50,7 +50,7 @@
         </picture>
       </div>
       <div class="page-title" :style="{ height: angle + 20 + '%' }" v-if="currentSubtitle.index !== undefined">
-        <h1 v-if="$store.state.post && pathTitle === 'blog-post'" class="blog-title">
+        <h1 v-if="pathTitle === 'blog-post'" class="blog-title">
           {{ $store.state.post.title }}
         </h1>
         <h1 v-else>Luis Augusto</h1>
@@ -134,22 +134,29 @@ export default {
 	beforeMount() {
     this.path = $nuxt.$route.path;
     this.pathTitle = $nuxt.$route.name;
-    const limit = this.isHomePage ? 10 : 1;
 
 		client
 			.getEntries({
 				content_type: 'subheaders',
-        order: 'fields.order',
-        limit
+        order: 'fields.order'
 			})
 			.then(({ items }) => {
-				this.titles = items.map(({ fields }) => {
+				const titles = items.map(({ fields }) => {
 					return {
-						title: this.isHomePage ? fields.title : this.pathTitle,
+            title: fields.title,
+            page: fields.page,
 						background: fields.image.fields.file.url,
 						fallback: fields.imageFallback.fields.file.url
 					};
-				});
+        });
+
+        const hasPageHeader = titles.some(title => {
+          return title.page === this.pathTitle;
+        });
+
+        this.titles = titles.filter(title => {
+          return title.page === (hasPageHeader ? this.pathTitle : undefined);
+        });
       });
 	},
 	mounted() {

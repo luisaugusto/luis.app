@@ -1,7 +1,7 @@
 <template>
-  <div v-if="blogs.length > 0" class="col-3 blog-posts" >
+  <div class="col-3 blog-posts" >
     <a
-      v-for="post in blogs"
+      v-for="post in posts"
       :key="post.id"
       v-observe-visibility="{
         callback: displayPost,
@@ -34,7 +34,7 @@
       </article>
     </a>
 
-    <div class="align-right" v-if="path === '/'">
+    <div class="align-right">
       <button>
         <nuxtLink to="/blog">
           Read More
@@ -45,16 +45,12 @@
 </template>
 
 <script>
-import { createClient } from '~/plugins/contentful.js';
-const client = createClient();
-
 export default {
-	data() {
-		return {
-      blogs: [],
-      path: '',
-		};
-	},
+  computed: {
+    posts() {
+      return this.$store.state.posts;
+    }
+  },
   methods: {
     displayPost(isVisible, entry) {
       if (isVisible) {
@@ -63,23 +59,7 @@ export default {
         }, 300);
       }
     }
-  },
-	beforeMount() {
-    this.path = $nuxt.$route.path;
-    const limit = this.path === '/' ? 3 : 10;
-
-    client
-			.getEntries({
-				content_type: 'blogPost',
-        order: 'fields.postDate',
-        limit
-			})
-			.then(({ items }) => {
-        this.blogs = items.map(({ fields, sys }) => {
-					return { ...fields, ...sys };
-				});
-      });
-	}
+  }
 };
 </script>
 

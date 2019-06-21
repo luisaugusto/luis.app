@@ -52,11 +52,13 @@ export default {
   },
   data() {
     return {
-      post: {},
       visible: false
     };
   },
   computed: {
+    post() {
+      return this.$store.state.post;
+    },
     formattedDate() {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const date  = new Date(this.post.postDate);
@@ -74,16 +76,14 @@ export default {
 			this.visible = isVisible;
 		}
 	},
-  beforeMount() {
-    client.getEntries({
+  async fetch({store, params}) {
+    let { items } = await client.getEntries({
       content_type: 'blogPost',
-      'fields.slug': $nuxt.$route.params.slug,
+      'fields.slug': params.slug,
       limit: 1
-    })
-    .then(blogPost => {
-      this.post = blogPost.items[0].fields;
-      console.log(this.post);
     });
+
+    store.commit('setPost', items[0].fields);
   }
 };
 </script>

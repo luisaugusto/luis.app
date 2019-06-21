@@ -2,7 +2,7 @@
   <div class="home">
     <app-section type="Description" :header="false" />
     <app-section type="Blog" custom-header="Latest Posts"/>
-    <app-section type="Skillsets" />
+    <!-- <app-section type="Skillsets" /> -->
   </div>
 </template>
 

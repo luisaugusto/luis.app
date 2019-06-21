@@ -25,7 +25,7 @@ const marked = require('marked');
 export default {
   head() {
     return {
-      titleTemplate: this.post.title + ' :: %s',
+      titleTemplate: this.post.title,
       meta: [
         {
           hid: 'description',

@@ -34,7 +34,7 @@
       </article>
     </a>
 
-    <div class="align-right">
+    <div class="align-right" v-if="isHomePage">
       <button>
         <nuxtLink to="/blog">
           Read More
@@ -46,9 +46,17 @@
 
 <script>
 export default {
+  data() {
+    return {
+      path: ''
+    };
+  },
   computed: {
     posts() {
       return this.$store.state.posts;
+    },
+    isHomePage() {
+      return this.path === '/';
     }
   },
   methods: {
@@ -59,6 +67,9 @@ export default {
         }, 300);
       }
     }
+  },
+  beforeMount() {
+    this.path = $nuxt.$route.path;
   }
 };
 </script>

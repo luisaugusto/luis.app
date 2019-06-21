@@ -1,6 +1,6 @@
 export const state = () => ({
   posts: [],
-  post: {}
+  post: undefined
 });
 
 export const mutations = {

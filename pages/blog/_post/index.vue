@@ -1,17 +1,6 @@
 <template>
   <div>
-    <section class="post" v-if="post.content">
-      <h1 v-observe-visibility="{
-          callback: toggleHeader,
-          once: true
-        }"
-        :class="{ visible }">
-        <span>{{ post.title }}</span>
-      </h1>
-      <p><em>{{ formattedDate }}</em></p>
-
-      <div v-html="markdown"></div>
-    </section>
+    <section class="post" v-html="markdown"></section>
     <section class="comments">
       <vue-disqus shortname="luis-codes" :identifier="post.slug" :url="'https://luis.codes/blog/' + post.slug"></vue-disqus>
     </section>
@@ -59,16 +48,11 @@ export default {
     post() {
       return this.$store.state.post;
     },
-    formattedDate() {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const date  = new Date(this.post.postDate);
-      return date.toLocaleDateString('en-US', options);
-    },
     markdown() {
       return marked(this.post.content);
     },
     image() {
-      return this.post.featuredImageJPG ? this.post.featuredImageJPG.fields.file.url : '';
+      return this.post.featuredImageJPG.fields.file.url;
     }
   },
   methods: {
@@ -99,11 +83,11 @@ export default {
 
   h2 {
     clip-path: none;
-    border-left: none;
-    padding-left: 0;
-    margin: calc(var(--spacing)) 0;
-    font-size: 2.5em;
-    font-weight: bold;
+    padding-left: var(--spacing);
+
+    &::first-letter {
+      font-weight: bold;
+    }
   }
 
   iframe[src*='codepen'] {

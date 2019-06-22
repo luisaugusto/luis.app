@@ -6,11 +6,31 @@
         '-webkit-clip-path': `polygon(0 0, 100% 00%, 100% 100%, 0 ${angle}%)`
       }"
     >
-      <div class="backgrounds">
+      <div class="backgrounds" v-if="$store.state.post && pathTitle === 'blog-post'">
+        <picture
+          :class="{ active: currentSubtitle.index === 0 }"
+        >
+          <source
+            :srcset="$store.state.post.featuredImage.fields.file.url"
+            type="image/webp"
+            @load="firstTitleLoaded = true"
+          >
+          <source
+            :srcset="$store.state.post.featuredImageJPG.fields.file.url"
+            type="image/jpeg"
+            @load="firstTitleLoaded = true"
+          >
+          <img
+            :src="$store.state.post.featuredImageJPG.fields.file.url"
+            @load="firstTitleLoaded = true"
+          >
+        </picture>
+      </div>
+      <div class="backgrounds" v-else>
         <picture
           v-for="(img, i) in titles"
           :key="img.title"
-          :class="{ active: currentSubtitle.index == i }"
+          :class="{ active: currentSubtitle.index === i }"
         >
           <source
             :srcset="img.background"
@@ -29,8 +49,11 @@
           >
         </picture>
       </div>
-      <div class="page-title" :style="{ height: angle + 20 + '%' }">
-        <h1>Luis Augusto</h1>
+      <div class="page-title" :style="{ height: angle + 20 + '%' }" v-if="currentSubtitle.index !== undefined">
+        <h1 v-if="pathTitle === 'blog-post'" class="blog-title">
+          {{ $store.state.post.title }}
+        </h1>
+        <h1 v-else>Luis Augusto</h1>
         <div>
           <span class="spacer">_</span>
           <span>{{ currentSubtitle.text }}</span>
@@ -40,24 +63,9 @@
     </div>
     <nav>
       <ul>
-        <li>
-          <nuxtLink to="/">
-            Home
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/portfolio">
-            Portfolio
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/blog">
-            Blog
-          </nuxtLink>
-        </li>
-        <li>
-          <nuxtLink to="/contact">
-            Contact
+        <li v-for="page in nav" :key="page.name">
+          <nuxtLink :to="page.path">
+            {{ page.name }}
           </nuxtLink>
         </li>
       </ul>
@@ -82,34 +90,73 @@ export default {
 				text: ''
 			},
 			flashingCursor: true,
-			sections: ['Blog', 'Skillsets', 'Portfolio', 'Contact']
+			nav: [
+        {
+          name: 'Home',
+          path: '/'
+        },
+        {
+          name: 'Portfolio',
+          path: '/portfolio'
+        },
+        {
+          name: 'Blog',
+          path: '/blog'
+        },
+        {
+          name: 'Contact',
+          path: '/contact'
+        }
+      ]
 		};
+  },
+  computed: {
+    isHomePage() {
+      return this.path === '/';
+    }
   },
 	watch: {
 		firstTitleLoaded() {
-			this.currentSubtitle.index = 0;
-			this.typeSubtitles(this.titles[0].title);
+      this.currentSubtitle.index = 0;
+
+      if (this.pathTitle === 'blog-post') {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date  = new Date(this.$store.state.post.postDate);
+        const formattedDate = date.toLocaleDateString('en-US', options);
+
+        this.typeSubtitles(formattedDate);
+      } else {
+        this.typeSubtitles(this.titles[0].title);
+      }
+
 		}
 	},
 	beforeMount() {
     this.path = $nuxt.$route.path;
     this.pathTitle = $nuxt.$route.name;
-    const limit = this.path === '/' ? 10 : 1;
 
 		client
 			.getEntries({
 				content_type: 'subheaders',
-        order: 'fields.order',
-        limit
+        order: 'fields.order'
 			})
 			.then(({ items }) => {
-				this.titles = items.map(({ fields }) => {
+				const titles = items.map(({ fields }) => {
 					return {
-						title: this.path === '/' ? fields.title : this.pathTitle,
+            title: fields.title,
+            page: fields.page,
 						background: fields.image.fields.file.url,
 						fallback: fields.imageFallback.fields.file.url
 					};
-				});
+        });
+
+        const hasPageHeader = titles.some(title => {
+          return title.page === this.pathTitle;
+        });
+
+        this.titles = titles.filter(title => {
+          return title.page === (hasPageHeader ? this.pathTitle : undefined);
+        });
       });
 	},
 	mounted() {
@@ -149,7 +196,7 @@ export default {
 			if (cur == str.length) {
 				this.flashingCursor = true;
 
-        if (this.path !== '/') return;
+        if (!this.isHomePage) return;
 
 				setTimeout(function() {
 					vm.typeSubtitles(str, --cur, true);
@@ -231,6 +278,18 @@ header {
         margin: 0;
         font-size: 4em;
 
+        &.blog-title {
+          font-size: 2.5em;
+          text-align: center;
+          margin: 0 0 0.5em;
+          max-width: 800px;
+          padding: 0 var(--spacing);
+
+          + div {
+            font-size: 2em;
+          }
+        }
+
         + div {
           font-family: "Major Mono Display";
           font-size: 2.5em;
@@ -250,6 +309,14 @@ header {
 
           + div {
             font-size: 7vw;
+          }
+
+          &.blog-title {
+            font-size: 8vw;
+
+            + div {
+              font-size: 5vw
+            }
           }
         }
       }
@@ -288,7 +355,7 @@ nav {
         text-decoration: none;
 
         &:hover,
-        &.active {
+        &.nuxt-link-active:not([href="/"]) {
           border-top-width: 3px;
           padding-top: 8px;
         }

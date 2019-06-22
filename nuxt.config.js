@@ -1,3 +1,6 @@
+require('dotenv').config();
+const contentful = require('contentful');
+
 export default {
 	mode: 'universal',
 	head: {
@@ -32,7 +35,7 @@ export default {
 	},
 	loading: { color: '#fff' },
 	css: ['@/assets/global.scss'],
-	plugins: ['~/plugins/font-awesome', '~/plugins/observe-visibility'],
+	plugins: ['~/plugins/font-awesome', '~/plugins/observe-visibility', '~/plugins/disqus'],
 	modules: [
 		// Doc: https://axios.nuxtjs.org/usag
 		'@nuxtjs/axios',
@@ -43,5 +46,24 @@ export default {
 	axios: {},
 	build: {
 		extend(config, ctx) {}
-	}
+  },
+  generate: {
+    routes() {
+      const client = contentful.createClient({
+          space:  process.env.CTF_SPACE_ID,
+          accessToken: process.env.CTF_ACCESS_TOKEN
+      });
+
+      return client.getEntries({
+          content_type: 'blogPost',
+      }).then((response) => {
+          return response.items.map(entry => {
+              return {
+                  route: '/blog/' + entry.fields.slug,
+                  payload: entry
+              };
+          });
+      });
+    }
+  }
 };

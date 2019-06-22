@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     displaySection(isVisible, entry) {
-      console.log(entry);
       if (isVisible) {
         setTimeout(function() {
           entry.target.setAttribute('display', true);

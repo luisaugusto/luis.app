@@ -12,7 +12,14 @@ import { createClient } from '~/plugins/contentful.js';
 const client = createClient();
 
 export default {
+  async fetch ({ store, params }) {
+    let { items } = await client.getEntries({
+      content_type: 'blogPost',
+      order: 'fields.postDate'
+    });
 
+    store.commit('setPosts', items);
+  },
 	components: {
 		AppSection
 	}

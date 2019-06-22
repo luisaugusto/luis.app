@@ -33,8 +33,7 @@
         </div>
       </article>
     </a>
-
-    <div class="align-right" v-if="isHomePage">
+    <div class="align-right" v-show="isHomePage">
       <button>
         <nuxtLink to="/blog">
           Read More

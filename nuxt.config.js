@@ -17,6 +17,21 @@ export default {
 				hid: 'og:image',
 				property: 'og:image',
 				content: 'https://luis.codes/photos/banner.jpg'
+      },
+      {
+				hid: 'og:url',
+				property: 'og:url',
+				content: 'https://luis.codes'
+      },
+      {
+				hid: 'og:title',
+				property: 'og:title',
+				content: 'Luis Augusto'
+      },
+      {
+				hid: 'og:site_name',
+				property: 'og:site_name',
+				content: 'Luis Augusto'
 			}
 		],
 		link: [

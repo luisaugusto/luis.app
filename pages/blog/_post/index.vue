@@ -35,7 +35,12 @@ export default {
           hid: 'og:description',
           property: 'og:description',
           content: this.post.description
-        }
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: 'https://luis.codes/blog/' + this.post.slug
+        },
       ],
     };
   },

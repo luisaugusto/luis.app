@@ -1,7 +1,7 @@
 {
   "name": "luis.codes",
   "version": "1.2.0",
-  "description": "Fullstack JavaScript Developer",
+  "description": "Fullstack developer with a focus on JavaScript toolsets to deliver performant, scalable, and secure web applications.",
   "author": "Luis Augusto",
   "private": true,
   "scripts": {

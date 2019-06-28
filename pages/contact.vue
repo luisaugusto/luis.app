@@ -15,6 +15,11 @@ export default {
         hid: 'og:title',
         property: 'og:title',
         content: 'Contact :: Luis Augusto'
+      },
+      {
+				hid: 'og:url',
+				property: 'og:url',
+				content: 'https://luis.codes/contact'
       }
     ]
   },

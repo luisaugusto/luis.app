@@ -24,7 +24,7 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.image
+          content: 'https:' + this.image
         },
         {
           hid: 'og:title',

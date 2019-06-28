@@ -12,7 +12,12 @@ export default {
 				hid: 'description',
 				name: 'description',
 				content: process.env.npm_package_description || ''
-			},
+      },
+      {
+				hid: 'og:type',
+				property: 'og:type',
+				content: 'website'
+      },
 			{
 				hid: 'og:image',
 				property: 'og:image',

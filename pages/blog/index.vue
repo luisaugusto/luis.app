@@ -31,6 +31,9 @@ export default {
 				property: 'og:url',
 				content: 'https://luis.codes/blog'
       },
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://luis.codes/blog' }
     ]
   },
 	components: {

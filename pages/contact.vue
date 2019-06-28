@@ -21,6 +21,9 @@ export default {
 				property: 'og:url',
 				content: 'https://luis.codes/contact'
       }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://luis.codes/contact' }
     ]
   },
 	components: {

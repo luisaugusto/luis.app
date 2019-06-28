@@ -33,7 +33,7 @@ export default {
       },
     ],
     link: [
-      { rel: 'canonical', href: 'https://luis.codes/blog' }
+      { hid: 'canonical', rel: 'canonical', href: 'https://luis.codes/blog' }
     ]
   },
 	components: {

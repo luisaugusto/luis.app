@@ -36,7 +36,7 @@ export default {
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'canonical', href: 'https://luis.codes' },
+			{ hid: 'canonical', rel: 'canonical', href: 'https://luis.codes' },
 			{
 				rel: 'stylesheet',
 				href:

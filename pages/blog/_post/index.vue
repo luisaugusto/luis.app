@@ -42,6 +42,9 @@ export default {
           content: 'https://luis.codes/blog/' + this.post.slug
         },
       ],
+      link: [
+        { rel: 'canonical', href: 'https://luis.codes/blog/' + this.post.slug }
+      ]
     };
   },
   data() {

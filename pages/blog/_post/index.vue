@@ -43,7 +43,7 @@ export default {
         },
       ],
       link: [
-        { rel: 'canonical', href: 'https://luis.codes/blog/' + this.post.slug }
+        { hid: 'canonical', rel: 'canonical', href: 'https://luis.codes/blog/' + this.post.slug }
       ]
     };
   },

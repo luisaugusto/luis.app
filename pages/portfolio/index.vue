@@ -23,7 +23,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'canonical', href: 'https://luis.codes/portfolio' }
+      { hid: 'canonical', rel: 'canonical', href: 'https://luis.codes/portfolio' }
     ]
   },
 	components: {

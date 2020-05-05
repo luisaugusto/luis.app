@@ -44,6 +44,11 @@ article {
   h3 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+    svg {
+      margin-left: 1em;
+    }
   }
 
   p {

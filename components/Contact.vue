@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <p>
-      Feel free to contact me if you have any questions about my work, you want
-      to build something awesome, or if you just want to chat.
-    </p>
+  <section class="form">
     <form
       name="contact"
       method="post"
@@ -26,6 +22,7 @@
           >Name</span
         >
         <input
+          class="box"
           v-model="labelStates.name.text"
           type="text"
           name="name"
@@ -46,6 +43,7 @@
           >Email</span
         >
         <input
+          class="box"
           v-model="labelStates.email.text"
           type="email"
           name="email"
@@ -67,6 +65,7 @@
           >Subject</span
         >
         <input
+          class="box"
           v-model="labelStates.subject.text"
           type="text"
           name="subject"
@@ -88,6 +87,7 @@
           >Message</span
         >
         <textarea
+          class="box"
           ref="message"
           v-model="labelStates.message.text"
           name="message"
@@ -100,123 +100,107 @@
         />
       </label>
       <div>
-        <div v-if="status == 'success'" class="success" >
+        <button type="submit" :class="{ sending }">
+          <span v-if="this.sending">Sending...</span>
+          <span v-else>Send It</span>
+        </button>
+        <div v-if="status == 'success'" class="success">
           Thanks for your message!
         </div>
-        <div v-if="status == 'error'" class="error" >
+        <div v-if="status == 'error'" class="error">
           There was an error sending your message. Please try again or send me
           an email at <a href="mailto:hello@luis.codes">hello@luis.codes</a>.
         </div>
-        <button type="submit" :class="{ sending }">
-          <span v-if="this.sending">Sending...</span>
-          <span v-else>Submit</span>
-        </button>
       </div>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
-import axios from 'axios';
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
+import axios from 'axios'
 
 export default {
-	data() {
-		return {
-			labelStates: {
-				name: {
-					text: '',
-					active: false
-				},
-				email: {
-					text: '',
-					active: false
-				},
-				subject: {
-					text: '',
-					active: false
-				},
-				message: {
-					text: '',
-					active: false
-				}
-			},
-			sending: false,
-			status: ''
-		};
-	},
-	methods: {
-		resizeTextarea() {
-			const currentHeight = this.$refs.message.clientHeight;
-			this.$refs.message.removeAttribute('style');
-			const newHeight = this.$refs.message.scrollHeight;
+  data: () => ({
+    labelStates: {
+      name: {
+        text: '',
+        active: false
+      },
+      email: {
+        text: '',
+        active: false
+      },
+      subject: {
+        text: '',
+        active: false
+      },
+      message: {
+        text: '',
+        active: false
+      }
+    },
+    sending: false,
+    status: ''
+  }),
+  methods: {
+    resizeTextarea() {
+      const currentHeight = this.$refs.message.clientHeight
+      this.$refs.message.removeAttribute('style')
+      const newHeight = this.$refs.message.scrollHeight
 
-			this.$refs.message.style.height = currentHeight + 'px';
-			this.$refs.message.style.height = newHeight + 'px';
-		},
-		encode(data) {
-			return Object.keys(data)
-				.map(
-					key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-				)
-				.join('&');
-		},
-		handleSubmit() {
-			this.sending = true;
-			const axiosConfig = {
-				header: { 'Content-Type': 'application/x-www-form-urlencoded' }
-			};
-			axios
-				.post(
-					'/',
-					this.encode({
-						'form-name': 'contact',
-						name: this.labelStates.name.text,
-						email: this.labelStates.email.text,
-						subject: this.labelStates.subject.text,
-						message: this.labelStates.message.text
-					}),
-					axiosConfig
-				)
-				.then(() => {
-					this.labelStates.name.text = '';
-					this.labelStates.email.text = '';
-					this.labelStates.subject.text = '';
-					this.labelStates.message.text = '';
-					this.status = 'success';
-					this.sending = false;
+      this.$refs.message.style.height = currentHeight + 'px'
+      this.$refs.message.style.height = newHeight + 'px'
+    },
+    encode(data) {
+      return Object.keys(data)
+        .map(
+          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+        )
+        .join('&')
+    },
+    handleSubmit() {
+      this.sending = true
+      const axiosConfig = {
+        header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }
+      axios
+        .post(
+          '/',
+          this.encode({
+            'form-name': 'contact',
+            name: this.labelStates.name.text,
+            email: this.labelStates.email.text,
+            subject: this.labelStates.subject.text,
+            message: this.labelStates.message.text
+          }),
+          axiosConfig
+        )
+        .then(() => {
+          this.labelStates.name.text = ''
+          this.labelStates.email.text = ''
+          this.labelStates.subject.text = ''
+          this.labelStates.message.text = ''
+          this.status = 'success'
+          this.sending = false
 
-					setTimeout(() => {
-						this.resizeTextarea();
-					}, 2);
-				})
-				.catch(() => {
-					this.status = 'error';
-					this.sending = false;
-				});
-		}
-	}
-};
+          setTimeout(() => {
+            this.resizeTextarea()
+          }, 2)
+        })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-p {
-  grid-column: 1/-1;
-  font-size: 1.4em;
-  margin: 0 0 var(--spacing);
-  padding: var(--spacing) calc(var(--spacing) * 2);
-  padding-top: 0;
-  text-align: center;
-
-  @media (max-width: 450px) {
-    padding: var(--spacing);
-  }
-}
+@import 'assets/colors';
 
 form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: var(--spacing);
+  grid-gap: 30px;
+  margin-bottom: 30px;
 
   @media (max-width: 700px) {
     grid-template-columns: 1fr;
@@ -224,11 +208,6 @@ form {
 
   label {
     position: relative;
-    font-size: 2em;
-
-    @media (max-width: 650px) {
-      font-size: 1.5em;
-    }
 
     &.textarea,
     &.subject {
@@ -246,14 +225,16 @@ form {
 
     span.label-text {
       position: absolute;
-      opacity: 0.5;
+      opacity: 0.7;
       z-index: -1;
       transition: all 0.3s;
       top: 0;
+      padding: 15px;
 
       &.active {
         transform: translateY(-100%);
-        font-size: 0.5em;
+        font-size: 0.8em;
+        padding: 0;
       }
     }
 
@@ -271,7 +252,8 @@ form {
       background: none;
       resize: none;
       padding: 0;
-      font-family: "Montserrat";
+      color: $white;
+      font-family: 'Recursive', Helvetica, sans-serif;
     }
 
     textarea {
@@ -282,15 +264,31 @@ form {
   > div {
     display: flex;
     grid-column: 1/-1;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: row-reverse;
 
     > div {
       margin-right: var(--spacing);
     }
 
     .error {
-      color: red;
+      color: $red;
+    }
+
+    button {
+      background: $dark-blue;
+      border: 1px solid $light-blue;
+      padding: 15px;
+      color: $white;
+      font-family: 'Recursive', Helvetica, sans-serif;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.1s;
+
+      &:hover {
+        background: $blue;
+      }
     }
   }
 }

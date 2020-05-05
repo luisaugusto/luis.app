@@ -1,0 +1,35 @@
+a.article-container {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+article {
+  border: 1px solid $light-blue;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
+  background: $dark-blue;
+
+  &:hover {
+    background: $blue;
+  }
+
+  .tags {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+
+    .keyword {
+      margin-right: 15px;
+    }
+  }
+}
+
+svg {
+  width: 1em;
+  height: 1em;
+}

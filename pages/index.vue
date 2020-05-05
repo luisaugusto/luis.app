@@ -1,27 +1,31 @@
 <template>
-  <div class="home">
-    <app-section type="Description" :header="false" />
-    <app-section type="Blog" custom-header="Latest Posts"/>
-    <app-section type="Skillsets" />
+  <div class="page">
+    <h1>Fullstack JavaScript Developer</h1>
+    <p class="box">
+      I help build scalable and secure web applications and components, using
+      <span class="keyword">Node</span> for server side rendering,
+      <span class="keyword">Vue</span> for frontend architecture, and
+      <span class="keyword">Figma</span> for design and prototyping.
+    </p>
+    <h2>What I have been up to</h2>
+    <Articles></Articles>
+    <h2>What I have been working on</h2>
+    <Github></Github>
+    <h2>Contact</h2>
+    <Contact></Contact>
   </div>
 </template>
 
 <script>
-import AppSection from '../components/AppSection.vue';
-import { createClient } from '~/plugins/contentful.js';
-const client = createClient();
+import Articles from '~/components/Articles'
+import Github from '~/components/Github'
+import Contact from '~/components/Contact'
 
 export default {
-  async fetch ({ store, params }) {
-    let { items } = await client.getEntries({
-      content_type: 'blogPost',
-      order: 'fields.postDate'
-    });
-
-    store.commit('setPosts', items);
-  },
-	components: {
-		AppSection
-	}
-};
+  components: {
+    Articles,
+    Github,
+    Contact
+  }
+}
 </script>

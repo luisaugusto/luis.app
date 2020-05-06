@@ -2,8 +2,8 @@
   <section class="articles">
     <div
       class="articles-container"
-      @touchStart="touchStart"
-      @touchEnd="touchEnd"
+      @touchstart="touchStart"
+      @touchend="touchEnd"
     >
       <Article
         v-for="(article, i) in articles"
@@ -17,14 +17,23 @@
       >
       </Article>
     </div>
-    <div class="pagination">
-      <div
-        tabindex="0"
-        v-for="(row, i) in rows"
-        :key="row"
-        :class="{ active: activeRow === i }"
-        @click="activeRow = i"
-      ></div>
+    <div
+      class="pagination-container"
+      :style="{ '--active-row-padding': Math.max(2 - activeRow, 0) }"
+    >
+      <div class="pagination">
+        <div
+          tabindex="0"
+          v-for="(row, i) in rows"
+          :key="row"
+          :class="{
+            active: activeRow === i,
+            small: !(activeRow < i + 3 && activeRow > i - 3)
+          }"
+          :style="{ '--offset-row': Math.max(activeRow - 5, 0) }"
+          @click="activeRow = i"
+        ></div>
+      </div>
     </div>
   </section>
 </template>
@@ -71,9 +80,11 @@ export default {
       }
     },
     touchStart(e) {
+      console.log('touching')
       this.touchX = e.changedTouches[0].screenX
     },
     touchEnd(e) {
+      console.log('stopped touching')
       const touchEnd = e.changedTouches[0].screenX
       const diff = touchEnd - this.touchX
 
@@ -100,6 +111,7 @@ export default {
     })
   },
   mounted() {
+    console.log('mounted')
     this.countColumns()
     window.addEventListener('resize', () => this.countColumns())
   }
@@ -111,8 +123,8 @@ export default {
 
 .articles-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: 0px 15px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-gap: 0 15px;
   margin-bottom: 30px;
 }
 
@@ -120,10 +132,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: calc(100vw - 30px);
+  overflow: hidden;
 
   > div {
     height: 16px;
-    width: 16px;
+    min-width: 16px;
     background: $light-blue;
     cursor: pointer;
     transition: all 0.3s;
@@ -133,13 +147,46 @@ export default {
       outline: none;
     }
 
+    &.small {
+      min-width: 8px;
+      height: 8px;
+    }
+
     &.active {
       background: $blue;
-      width: 48px;
+      min-width: 48px;
     }
 
     + div {
       margin-left: 16px;
+    }
+  }
+}
+
+@media (max-width: 956px) {
+  .pagination-container {
+    max-width: 276px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 0 calc(var(--active-row-padding) * 4px);
+  }
+
+  .pagination {
+    justify-content: flex-start;
+
+    > div {
+      margin-left: calc(var(--offset-row) * -20px);
+
+      &.active {
+        min-width: 44px;
+      }
+
+      + div {
+        margin-left: 12px;
+      }
     }
   }
 }

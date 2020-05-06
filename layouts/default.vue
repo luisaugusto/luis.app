@@ -47,6 +47,10 @@ body {
   > * {
     padding: 30px;
 
+    @media (max-width: 767px) {
+      padding: 15px;
+    }
+
     &.page {
       padding-bottom: 0;
     }

@@ -48,18 +48,20 @@ export default {
 @import 'assets/articles';
 
 a.article-container {
+  --delay: calc(var(--column-index) * 0.1s);
+
   max-height: 0px;
   opacity: 0;
   overflow: hidden;
-  transition: all 0.3s, max-height 0s 0.3s;
-  transform: translate(-30px, -30px) rotate(-10deg);
-  transform-origin: bottom left;
+  transition: all 0.3s var(--delay), max-height 0s calc(0.3s + var(--delay));
 
   &.active {
+    --min-delay: calc((var(--total-columns) - 1) * 0.1s + 0.3s);
+
     max-height: 1000px;
     opacity: 1;
-    transition: all 0.3s 0.3s, max-height 0s 0.3s;
-    transform: translate(0px, 0px) rotate(0deg);
+    transition: all 0.3s calc(var(--min-delay) + var(--delay)),
+      max-height 0s calc(var(--min-delay) + var(--delay));
   }
 }
 

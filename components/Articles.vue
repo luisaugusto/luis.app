@@ -3,6 +3,7 @@
     <div class="articles-container">
       <Article
         v-for="(article, i) in articles"
+        :style="{ '--column-index': i % columns, '--total-columns': columns }"
         :key="article.id"
         :ref="'article-' + article.id"
         :article="article"

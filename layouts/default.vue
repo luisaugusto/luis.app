@@ -46,6 +46,10 @@ body {
 
   > * {
     padding: 30px;
+
+    &.page {
+      padding-bottom: 0;
+    }
   }
 
   @media (min-width: 768px) {

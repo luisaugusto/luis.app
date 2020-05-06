@@ -13,7 +13,7 @@ export const actions = {
     await fetch(`https://api.github.com/users/luisaugusto/repos?sort=updated`, {
       headers: {
         Accept: 'application/vnd.github.mercy-preview+json',
-        Authorization: '66a62d1a8b24bde43c173f19fc07f3d6acc60b78'
+        Authorization: '6e89860a585ec95f3f044104e85a7553b09d8cde'
       }
     })
       .then((data) => data.json())

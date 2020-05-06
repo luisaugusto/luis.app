@@ -111,7 +111,6 @@ export default {
     })
   },
   mounted() {
-    console.log('mounted')
     this.countColumns()
     window.addEventListener('resize', () => this.countColumns())
   }

@@ -25,6 +25,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import 'assets/colors';
+
 div.social-media {
   display: inline-flex;
   align-items: center;
@@ -34,8 +36,8 @@ div.social-media {
 a {
   $transitionSpeed: 0.1s;
 
-  color: white;
-  opacity: 0.7;
+  color: $white;
+  opacity: 0.8;
   position: relative;
   display: flex;
   font-size: 22px;
@@ -47,7 +49,6 @@ a {
   &,
   svg {
     transition: all $transitionSpeed $transitionSpeed/2;
-    width: 1em;
     height: 1em;
   }
 
@@ -58,7 +59,7 @@ a {
     position: absolute;
     top: 5%;
     left: 0;
-    border: 1px solid white;
+    border: 1px solid $white;
     box-sizing: border-box;
     transition: all $transitionSpeed;
     transform: scale(0);

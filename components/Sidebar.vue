@@ -3,7 +3,7 @@
     <div class="sidebar-container">
       <img src="~/assets/profile.jpg" alt="Luis Augusto" />
       <hr />
-      <span class="title">Luis Augusto</span>
+      <h1 class="title">Luis Augusto</h1>
       <SocialMedia></SocialMedia>
     </div>
   </section>
@@ -49,6 +49,9 @@ img {
       font-weight: 350;
       font-variation-settings: 'MONO' 1;
       line-height: 0.8;
+      margin: 0;
+      padding: 0;
+      border: none;
     }
   }
 }

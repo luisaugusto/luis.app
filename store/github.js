@@ -9,7 +9,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRepos({ commit, dispatch }) {
+  async getRepos({ commit }) {
     await fetch(`https://api.github.com/users/luisaugusto/repos?sort=updated`, {
       headers: {
         Accept: 'application/vnd.github.mercy-preview+json',

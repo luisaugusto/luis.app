@@ -2,10 +2,6 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.codes)
 ![GitHub repo size](https://img.shields.io/github/repo-size/luisaugusto/luis.codes)
-![GitHub](https://img.shields.io/github/license/luisaugusto/luis.codes)
-
-![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/luisaugusto/luis.codes/nuxt)
-![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/luisaugusto/luis.codes/dev/node-sass)
 
 ###### Please consider supporting my work and other projects:
 

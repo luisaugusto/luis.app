@@ -2,10 +2,10 @@
   <div class="page">
     <h1>Fullstack JavaScript Developer</h1>
     <p class="box">
-      I help build scalable and secure web applications and components, using
-      <span class="keyword">Node</span> for server side rendering,
-      <span class="keyword">Vue</span> for frontend architecture, and
-      <span class="keyword">Figma</span> for design and prototyping.
+      I help build scalable, secure, and performant web applications using
+      JavaScript toolsets and frameworks, such as
+      <span class="keyword">Node</span>, <span class="keyword">Vue</span>,
+      <span class="keyword">Typescript</span>, and others.
     </p>
     <h2>What I have been up to</h2>
     <Articles></Articles>

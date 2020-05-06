@@ -1,7 +1,7 @@
 {
   "name": "luis-codes",
   "version": "2.0.0",
-  "description": "I help build scalable and secure web applications and components, using Node for server side rendering, Vue for frontend architecture, and Figma for design and prototyping.",
+  "description": "I help build scalable, secure, and performant web applications using JavaScript toolsets and frameworks, such as Node, Vue, Typescript, and others.",
   "author": "Luis Augusto",
   "license" : "GPL-3.0",
   "scripts": {

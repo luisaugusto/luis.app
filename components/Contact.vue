@@ -101,8 +101,8 @@
       </label>
       <div>
         <button type="submit" :class="{ sending }">
-          <span v-if="this.sending">Sending...</span>
-          <span v-else>Send It</span>
+          <template v-if="this.sending">Sending...</template>
+          <template v-else>Send It</template>
         </button>
         <div v-if="status == 'success'" class="success">
           Thanks for your message!
@@ -247,13 +247,23 @@ form {
     textarea {
       width: 100%;
       border: none;
-      border-bottom: 3px solid var(--accent-color);
       font-size: inherit;
       background: none;
       resize: none;
       padding: 0;
       color: $white;
       font-family: 'Recursive', Helvetica, sans-serif;
+
+      &:invalid {
+        outline: none;
+        box-shadow: none;
+        background: rgba($red, 0.5);
+      }
+
+      &:focus {
+        border: 1px solid $white;
+        background: rgba($blue, 0.5);
+      }
     }
 
     textarea {
@@ -288,6 +298,11 @@ form {
 
       &:hover {
         background: $blue;
+      }
+
+      &:focus {
+        background: rgba($blue, 0.5);
+        outline: none;
       }
     }
   }

@@ -81,6 +81,7 @@ body {
   span.keyword {
     position: relative;
     font-weight: 350;
+    text-shadow: 1px 1px black;
 
     &:before {
       content: '';

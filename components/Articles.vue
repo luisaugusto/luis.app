@@ -14,6 +14,7 @@
     </div>
     <div class="pagination">
       <div
+        tabindex="0"
         v-for="(row, i) in rows"
         :key="row"
         :class="{ active: activeRow === i }"
@@ -95,6 +96,11 @@ export default {
     background: $light-blue;
     cursor: pointer;
     transition: all 0.3s;
+
+    &:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
 
     &.active {
       background: $blue;

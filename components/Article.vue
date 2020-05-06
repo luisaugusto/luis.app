@@ -6,7 +6,7 @@
     target="_blank"
   >
     <article>
-      <img v-if="article.cover_image" :src="article.cover_image" />
+      <img v-if="article.cover_image" :src="article.cover_image" alt="" />
       <h3>{{ article.title }}</h3>
 
       <div class="tags">

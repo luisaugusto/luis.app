@@ -1,6 +1,10 @@
 <template>
   <section class="articles">
-    <div class="articles-container">
+    <div
+      class="articles-container"
+      @touchStart="touchStart"
+      @touchEnd="touchEnd"
+    >
       <Article
         v-for="(article, i) in articles"
         :style="{ '--column-index': i % columns, '--total-columns': columns }"
@@ -35,7 +39,8 @@ export default {
   },
   data: () => ({
     activeRow: 0,
-    columns: 1
+    columns: 1,
+    touchX: 0
   }),
   computed: {
     rows() {
@@ -64,6 +69,31 @@ export default {
       if (this.activeRow >= this.rows) {
         this.activeRow = this.rows - 1
       }
+    },
+    touchStart(e) {
+      this.touchX = e.changedTouches[0].screenX
+    },
+    touchEnd(e) {
+      const touchEnd = e.changedTouches[0].screenX
+      const diff = touchEnd - this.touchX
+
+      if (diff < -40) {
+        if (this.activeRow + 1 < this.rows) {
+          this.activeRow += 1
+        } else {
+          this.activeRow = 0
+        }
+      }
+
+      if (diff > 40) {
+        if (this.activeRow > 0) {
+          this.activeRow -= 1
+        } else {
+          this.activeRow = this.rows - 1
+        }
+      }
+
+      this.touchX = 0
     },
     ...mapActions({
       getArticles: 'articles/getArticles'

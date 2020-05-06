@@ -2,6 +2,7 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.codes)
 ![GitHub repo size](https://img.shields.io/github/repo-size/luisaugusto/luis.codes)
+![GitHub](https://img.shields.io/github/license/luisaugusto/luis.codes) 
 
 ###### Please consider supporting my work and other projects:
 

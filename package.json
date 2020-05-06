@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "I help build scalable and secure web applications and components, using Node for server side rendering, Vue for frontend architecture, and Figma for design and prototyping.",
   "author": "Luis Augusto",
-  "private": true,
+  "license" : "GPL-3.0",
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",

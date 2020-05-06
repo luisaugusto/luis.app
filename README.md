@@ -18,12 +18,9 @@ This is the source code for my personal website, [luis.codes](https://luis.codes
 
 - [Vue](https://vuejs.org/) and [Nuxt](https://nuxtjs.org/) for static pre-rendering
 - [Vuex](https://vuex.vuejs.org/) for state management
-- [Contentful](https://vuex.vuejs.org/) for the headless CMS
-- [Disqus](https://disqus.com/) for blog commenting
 - [Font Awesome](https://fontawesome.com/) for icons
 - [Netlify](https://www.netlify.com/) for static hosting and form submissions
-
-Photos and images on the blog provided from [Pexels](https://www.pexels.com/) and [Unsplash](https://unsplash.com/).
+- [Recursive Variable Font](https://www.recursive.design/) for typography
 
 ## Installation
 

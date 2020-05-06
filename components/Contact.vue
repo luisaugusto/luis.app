@@ -22,7 +22,7 @@
           >Name</span
         >
         <input
-          class="box"
+          :class="['box', { empty: labelStates.name.text.length === 0 }]"
           v-model="labelStates.name.text"
           type="text"
           name="name"
@@ -43,7 +43,7 @@
           >Email</span
         >
         <input
-          class="box"
+          :class="['box', { empty: labelStates.email.text.length === 0 }]"
           v-model="labelStates.email.text"
           type="email"
           name="email"
@@ -65,7 +65,7 @@
           >Subject</span
         >
         <input
-          class="box"
+          :class="['box', { empty: labelStates.subject.text.length === 0 }]"
           v-model="labelStates.subject.text"
           type="text"
           name="subject"
@@ -87,7 +87,7 @@
           >Message</span
         >
         <textarea
-          class="box"
+          :class="['box', { empty: labelStates.message.text.length === 0 }]"
           ref="message"
           v-model="labelStates.message.text"
           name="message"
@@ -253,11 +253,15 @@ form {
       padding: 0;
       color: $white;
       font-family: 'Recursive', Helvetica, sans-serif;
+      transition: all 0.2s;
+
+      &:invalid:not(.empty) {
+        outline: none;
+        background: rgba($red, 0.5);
+      }
 
       &:invalid {
-        outline: none;
         box-shadow: none;
-        background: rgba($red, 0.5);
       }
 
       &:focus {

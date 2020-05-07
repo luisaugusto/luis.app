@@ -59,9 +59,6 @@ export default {
       return this.$store.state.articles.list
     }
   },
-  async fetch() {
-    await this.getArticles()
-  },
   methods: {
     countColumns() {
       this.columns = this.articles.reduce((acc, article) => {
@@ -113,6 +110,9 @@ export default {
   mounted() {
     this.countColumns()
     window.addEventListener('resize', () => this.countColumns())
+  },
+  created() {
+    this.getArticles()
   }
 }
 </script>

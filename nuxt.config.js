@@ -40,7 +40,8 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', href: '/favicon.svg' },
+      { rel: 'mask-icon', href: '/favicon.svg', color: '#F1FAEE' },
       { hid: 'canonical', rel: 'canonical', href: 'https://luis.codes' }
     ]
   },

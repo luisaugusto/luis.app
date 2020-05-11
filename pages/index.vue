@@ -26,6 +26,7 @@ export default {
     Articles,
     Github,
     Contact
-  }
+  },
+  middleware: ['articles', 'github']
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="version">
-      v2.0.1
+      v2.0.2
     </div>
     <a
       href="https://offset.earth/luisaugusto"

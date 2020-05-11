@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Article from '~/components/Article'
 
 export default {
@@ -59,9 +58,6 @@ export default {
       return this.$store.state.articles.list
     }
   },
-  async fetch() {
-    await this.getArticles()
-  },
   methods: {
     countColumns() {
       this.columns = this.articles.reduce((acc, article) => {
@@ -80,11 +76,9 @@ export default {
       }
     },
     touchStart(e) {
-      console.log('touching')
       this.touchX = e.changedTouches[0].screenX
     },
     touchEnd(e) {
-      console.log('stopped touching')
       const touchEnd = e.changedTouches[0].screenX
       const diff = touchEnd - this.touchX
 
@@ -105,10 +99,7 @@ export default {
       }
 
       this.touchX = 0
-    },
-    ...mapActions({
-      getArticles: 'articles/getArticles'
-    })
+    }
   },
   mounted() {
     this.countColumns()

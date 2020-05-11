@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Repo from '~/components/Repo'
 
 export default {
@@ -16,14 +15,6 @@ export default {
     repos() {
       return this.$store.state.github.repos
     }
-  },
-  async fetch() {
-    await this.getRepos()
-  },
-  methods: {
-    ...mapActions({
-      getRepos: 'github/getRepos'
-    })
   }
 }
 </script>

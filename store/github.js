@@ -17,6 +17,8 @@ export const actions = {
       }
     })
       .then((data) => data.json())
-      .then((repos) => commit('setRepos', repos))
+      .then((repos) => {
+        commit('setRepos', repos)
+      })
   }
 }

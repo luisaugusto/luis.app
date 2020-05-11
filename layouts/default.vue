@@ -60,6 +60,7 @@ body {
     .page {
       height: 100vh;
       overflow: scroll;
+      overflow-x: hidden;
       box-sizing: border-box;
       border-left: 2px solid $blue;
       grid-row: 1/3;

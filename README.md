@@ -11,6 +11,8 @@
 
 # Luis Augusto - Fullstack JavaScript Developer
 
+![](screenshot.png)
+
 This is the source code for my personal website, [luis.codes](https://luis.codes), built with:
 
 - [Vue](https://vuejs.org/) and [Nuxt](https://nuxtjs.org/) for static pre-rendering

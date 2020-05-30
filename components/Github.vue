@@ -25,5 +25,6 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 15px;
   margin-bottom: 30px;
+  grid-auto-rows: 1fr;
 }
 </style>

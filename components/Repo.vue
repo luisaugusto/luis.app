@@ -44,10 +44,12 @@ article {
   h3 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     word-break: break-all;
+
     svg {
       margin-left: 1em;
+      height: 28px;
     }
   }
 

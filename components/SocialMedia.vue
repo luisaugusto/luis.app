@@ -21,6 +21,13 @@
     >
       <font-awesome-icon :icon="['fab', 'twitter']"></font-awesome-icon>
     </a>
+    <a
+      href="https://www.linkedin.com/in/luisbaugusto/"
+      target="_blank"
+      title="Luis's LinkedIn Profile"
+    >
+      <font-awesome-icon :icon="['fab', 'linkedin']"></font-awesome-icon>
+    </a>
   </div>
 </template>
 
@@ -42,8 +49,8 @@ a {
   display: flex;
   font-size: 22px;
 
-  &:nth-of-type(2) {
-    margin: 0 1em;
+  + a {
+    margin-left: 1em;
   }
 
   &,

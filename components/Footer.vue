@@ -3,11 +3,7 @@
     <div class="version">
       v2.0.2
     </div>
-    <a
-      href="https://offset.earth/luisaugusto"
-      title="Offset Earth"
-      target="_blank"
-    >
+    <a href="https://ecologi.com/luisaugusto" title="Ecologi" target="_blank">
       <img
         src="https://img.shields.io/badge/Plant%20a%20Tree-%F0%9F%8C%B3-green"
         alt="Plant a Tree"

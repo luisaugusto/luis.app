@@ -4,6 +4,7 @@
     :href="article.canonical_url"
     :title="article.title"
     target="_blank"
+    rel="noreferrer"
   >
     <article>
       <img v-if="article.cover_image" :src="article.cover_image" alt="" />

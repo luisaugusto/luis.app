@@ -4,6 +4,7 @@
     class="article-container"
     target="_blank"
     :title="repo.name"
+    rel="noreferrer"
   >
     <article>
       <h3>

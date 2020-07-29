@@ -4,6 +4,7 @@
       href="https://dev.to/luisaugusto"
       target="_blank"
       title="Luis's Dev Blog"
+      rel="noreferrer"
     >
       <font-awesome-icon :icon="['fab', 'dev']"></font-awesome-icon>
     </a>
@@ -11,6 +12,7 @@
       href="https://github.com/luisaugusto"
       target="_blank"
       title="Luis's Github Profile"
+      rel="noreferrer"
     >
       <font-awesome-icon :icon="['fab', 'github']"></font-awesome-icon>
     </a>
@@ -18,6 +20,7 @@
       href="https://twitter.com/LegendOfLuis"
       target="_blank"
       title="Luis's Twitter Profile"
+      rel="noreferrer"
     >
       <font-awesome-icon :icon="['fab', 'twitter']"></font-awesome-icon>
     </a>
@@ -25,6 +28,7 @@
       href="https://www.linkedin.com/in/luisbaugusto/"
       target="_blank"
       title="Luis's LinkedIn Profile"
+      rel="noreferrer"
     >
       <font-awesome-icon :icon="['fab', 'linkedin']"></font-awesome-icon>
     </a>

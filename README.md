@@ -1,6 +1,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b9c19038-24b3-4435-9f39-9ea4489b0978/deploy-status)](https://app.netlify.com/sites/luis-codes/deploys)
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.codes)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.codes/main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/luisaugusto/luis.codes)
 ![GitHub](https://img.shields.io/github/license/luisaugusto/luis.codes) 
 

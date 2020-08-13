@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="version">
-      v2.0.2
+      v2.0.3
     </div>
     <a
       href="https://ecologi.com/luisaugusto"

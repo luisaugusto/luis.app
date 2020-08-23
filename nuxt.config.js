@@ -65,6 +65,14 @@ export default {
    ** Nuxt.js modules
    */
   modules: ['@nuxtjs/pwa'],
+  pwa: {
+    icon: {
+      purpose: 'maskable'
+    },
+    meta: {
+      theme_color: '#1D3557'
+    }
+  },
   /*
    ** Build configuration
    */

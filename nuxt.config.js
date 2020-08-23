@@ -66,10 +66,12 @@ export default {
    */
   modules: ['@nuxtjs/pwa'],
   pwa: {
-    icon: {
-      purpose: 'maskable'
-    },
     meta: {
+      theme_color: '#1D3557'
+    },
+    manifest: {
+      name: 'luis.codes',
+      background_color: '#1D3557',
       theme_color: '#1D3557'
     }
   },

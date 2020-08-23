@@ -71,6 +71,7 @@ export default {
     },
     manifest: {
       name: 'luis.codes',
+      short_name: 'luis.codes',
       background_color: '#1D3557',
       theme_color: '#1D3557'
     }

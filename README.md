@@ -1,19 +1,19 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b9c19038-24b3-4435-9f39-9ea4489b0978/deploy-status)](https://app.netlify.com/sites/luis-codes/deploys)
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.codes/main)
-![GitHub repo size](https://img.shields.io/github/repo-size/luisaugusto/luis.codes)
-![GitHub](https://img.shields.io/github/license/luisaugusto/luis.codes) 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/luisaugusto/luis.app/main)
+![GitHub repo size](https://img.shields.io/github/repo-size/luisaugusto/luis.app)
+![GitHub](https://img.shields.io/github/license/luisaugusto/luis.app) 
 
 ###### Please consider supporting my work and other projects:
 
 [![Plant a Tree](https://img.shields.io/badge/Plant%20a%20Tree-%F0%9F%8C%B3-green)](https://ecologi.com/luisaugusto)
-[![Buy Me a Boba Tea](https://img.shields.io/badge/Buy%20Me%20a%20Boba%20Tea-🥤-yellow)](https://www.buymeacoffee.com/luiscodes)
+[![Buy Me a Boba Tea](https://img.shields.io/badge/Buy%20Me%20a%20Boba%20Tea-🥤-yellow)](https://buymeacoff.ee/luisaugusto)
 
 # Luis Augusto - Fullstack JavaScript Developer
 
 ![](screenshot.png)
 
-This is the source code for my personal website, [luis.codes](https://luis.codes), built with:
+This is the source code for my personal website, [luis.app](https://luis.app), built with:
 
 - [Vue](https://vuejs.org/) and [Nuxt](https://nuxtjs.org/) for static pre-rendering
 - [Vuex](https://vuex.vuejs.org/) for state management
@@ -26,8 +26,8 @@ This is the source code for my personal website, [luis.codes](https://luis.codes
 Clone the repository to your computer and install dependencies.
 
 ```
-$ git clone git@github.com:luisaugusto/luis.codes.git
-$ cd luis.codes
+$ git clone git@github.com:luisaugusto/luis.app.git
+$ cd luis.app
 
 $ npm install
 ```

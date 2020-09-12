@@ -21,12 +21,12 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://luis.codes/banner.jpg'
+        content: 'https://luis.app/banner.jpg'
       },
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://luis.codes'
+        content: 'https://luis.app'
       },
       {
         hid: 'og:title',
@@ -42,7 +42,7 @@ export default {
     link: [
       { rel: 'icon', href: '/favicon.svg' },
       { rel: 'mask-icon', href: '/favicon.svg', color: '#F1FAEE' },
-      { hid: 'canonical', rel: 'canonical', href: 'https://luis.codes' }
+      { hid: 'canonical', rel: 'canonical', href: 'https://luis.app' }
     ]
   },
   /*
@@ -70,8 +70,8 @@ export default {
       theme_color: '#1D3557'
     },
     manifest: {
-      name: 'luis.codes',
-      short_name: 'luis.codes',
+      name: 'luis.app',
+      short_name: 'luis.app',
       background_color: '#1D3557',
       theme_color: '#1D3557'
     }

@@ -109,7 +109,7 @@
         </div>
         <div v-if="status == 'error'" class="error">
           There was an error sending your message. Please try again or send me
-          an email at <a href="mailto:hello@luis.codes">hello@luis.codes</a>.
+          an email at <a href="mailto:hello@luis.app">hello@luis.app</a>.
         </div>
       </div>
     </form>

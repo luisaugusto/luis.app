@@ -17,7 +17,7 @@
       <font-awesome-icon :icon="['fab', 'github']"></font-awesome-icon>
     </a>
     <a
-      href="https://twitter.com/LegendOfLuis"
+      href="https://twitter.com/ItsLuisAugusto"
       target="_blank"
       title="Luis's Twitter Profile"
       rel="noreferrer"
